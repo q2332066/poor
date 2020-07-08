@@ -1,0 +1,247 @@
+<style>
+    /* 左树 */
+    #organizationTreeBar {
+        padding: 10px 15px;
+        border: 1px solid #e6e6e6;
+        background-color: #f2f2f2;
+    }
+
+    #organizationTree11 {
+        border: 1px solid #e6e6e6;
+        border-top: none;
+        padding: 10px 5px;
+        overflow: auto;
+        height: -webkit-calc(100vh - 263px);
+        height: -moz-calc(100vh - 263px);
+        height: calc(100vh - 263px);
+    }
+
+    .layui-tree-entry .layui-tree-txt {
+        padding: 0 5px;
+        border: 1px transparent solid;
+        text-decoration: none !important;
+    }
+
+    .layui-tree-entry.ew-tree-click .layui-tree-txt {
+        background-color: #fff3e0;
+        border: 1px #FFE6B0 solid;
+    }
+
+    /* 右表搜索表单 */
+    #organizationUserTbSearchForm .layui-form-label {
+        box-sizing: border-box !important;
+        width: 90px !important;
+    }
+
+    #organizationUserTbSearchForm .layui-input-block {
+        margin-left: 90px !important;
+    }
+</style>
+<!-- 正文开始 -->
+<div class="layui-fluid" style="padding-bottom: 0;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding: 10px;">
+                 
+                    <div id="organizationTree11"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding: 10px;">
+                    <!-- 数据表格 -->
+                    <table id="organizationUserTable11" lay-filter="organizationUserTable11"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 表格工具列 -->
+<script type="text/html" id="organizationUserTbToolBar11">
+    <!-- <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
+        <i class="layui-icon">&#xe654;</i>添加
+    </button>&nbsp; -->
+  
+    <div class="dropdown-menu">
+        <button class="layui-btn layui-btn-sm layui-btn-warm icon-btn">
+            <i class="layui-icon">&#xe615;</i>搜索
+        </button>
+        <div class="dropdown-menu-nav dropdown-bottom-right"
+             style="width: 300px;padding: 15px 15px 0 0;">
+            <div class="dropdown-anchor"></div>
+            <div class="layui-form" id="organizationUserTbSearchForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">搬迁人员身份证:</label>
+                    <div class="layui-input-block">
+                        <input name="idCard" class="layui-input" placeholder="输入用户名"/>
+                    </div>
+                </div>
+                <div class="layui-form-item text-right">
+                    <button class="layui-btn icon-btn" lay-filter="organizationUserTbSearch" lay-submit>
+                        <i class="layui-icon">&#xe615;</i>搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<!-- js部分 -->
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tree = layui.tree;
+        var xmSelect = layui.xmSelect;
+        var selObj, treeData;  // 左树选中数据
+        var setter = layui.setter
+
+          /* 渲染树形 */
+        function renderTree() {
+            $.ajax
+            ({url: setter.baseServer + 'region/est/city/list', type: 'post',
+            headers: {"token":layui.data(layui.setter.tableName)['token']},
+            success:function (res) {
+                console.log(res);
+                if(res&&res.data){
+                    res.data.forEach(function(item){
+                        item.title = item.cityName;
+                        item.id = item.patentId;
+                        item.cityId = item.patentId;
+                        item.disId = null;
+                        item.towId = null;
+                        item.resettlementPointId = null;
+                        item.spread = false;
+                        // 第二级
+                        if(item.children&&item.children.length){
+                            item.children.forEach(function(itemTwo){
+                                itemTwo.title = itemTwo.cityName;
+                                itemTwo.cityId = itemTwo.patentId;
+                                itemTwo.disId = itemTwo.cId;
+                                itemTwo.towId = null;
+                                itemTwo.resettlementPointId=null;
+                                itemTwo.id = itemTwo.cId;
+                                itemTwo.spread = false;
+                                // 第三级
+                                if(itemTwo.children&&itemTwo.children.length){
+                                    itemTwo.children.forEach(function(itemThree){
+                                        itemThree.title = itemThree.cityName;
+                                        itemThree.cityId = itemTwo.patentId;
+                                        itemThree.disId = itemTwo.cId;
+                                        itemThree.towId = itemThree.cId;
+                                        itemThree.resettlementPointId = null;
+                                        itemThree.id = itemThree.cId;
+                                        itemThree.spread = false;
+                                        // 第四级
+                                        if(itemThree.children&&itemThree.children.length){
+                                            itemThree.children.forEach(function(itemFour){
+                                                itemFour.title = itemFour.resettlementPoint;
+                                                itemFour.id = itemFour.rId;
+                                                itemFour.cityId = itemTwo.patentId;
+                                                itemFour.disId = itemTwo.cId;
+                                                itemFour.towId = itemThree.id;
+                                                itemFour.resettlementPointId =  itemFour.rid;
+                                                itemFour.spread = false;
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                            
+                            
+                            
+
+                        }
+                    })
+                }
+               //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
+                treeData = res.data?res.data:[]
+                tree.render({
+                    elem: '#organizationTree11',
+                    onlyIconControl: true,
+                    data: treeData,
+                    click: function (obj) {
+                        console.log(obj)
+                        selObj =  obj;
+                        var thisObj = obj.data
+                        $('#organizationTree11').find('.ew-tree-click').removeClass('ew-tree-click');
+                        $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
+                        var setObj = new Object()
+                        setObj = {
+                            "cityId": thisObj.cityId,
+                            "disId": thisObj.disId,
+                            "resettlementPointId": thisObj.resettlementPointId,
+                            "towId": thisObj.towId
+                        }
+                        insTb.reload({
+                            method:'post',
+                            where: setObj,
+                            contentType: 'application/json',
+                            url: setter.baseServer + 'api/est/person/select/tree',
+                            headers: {"token":layui.data(layui.setter.tableName)['token']},
+                        });
+                    }
+                });
+                $('#organizationTree11').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
+            }});
+        }
+
+        renderTree();
+        // /* 渲染表格 */
+         var insTb = table.render({
+            elem: '#organizationUserTable11',
+            data: [],
+             height: 'full-190',
+             page: true,
+             toolbar: '#organizationUserTbToolBar11',
+             cellMinWidth: 100,
+             cols: [[
+                 {type: 'checkbox'},
+                 {type: 'numbers'},
+                
+
+                 {field: 'name', title: '搬迁人员姓名',   align: 'center', width: 150},
+                 {field: 'idCard', title: '搬迁人员身份证号',  align: 'center', width: 180},
+                 {field: 'torfHost', title: '是否户主',  align: 'center', width: 150},
+                
+                 {field: 'hostId', title: '户主身份证账号',  align: 'center', width: 150},
+                 {field: 'relationship', title: '与户主关系',  align: 'center', width: 150},
+             
+                 {field: 'torfLabo', title: '是否劳动力',  align: 'center', width: 150},
+                
+                 {field: 'movedOut', title: '迁出地',  align: 'center', width: 200},
+                 {field: 'moveIn', title: '迁入地',  align: 'center', width: 200},
+                 {field: 'arrangement', title: '安置方式',  align: 'center', width: 150},
+                 {field: 'resettlementPoint', title: '安置点名称',  align: 'center', width: 200},
+                 
+                
+                 {field: 'phone', title: '联系方式',   align: 'center', width: 150},
+                 {field: 'torfPoor', title: '是否脱贫',   align: 'center', width: 150},
+                 {field: 'remarks', title: '备注（新增或死亡）',   align: 'center', width: 150},
+               
+             ]],
+             done: function () {
+               // 表格搜索
+              form.on('submit(organizationUserTbSearch)', function (data) {
+                    insTb.reload({where: data.field, page: {curr: 1}});
+                     return false;
+                 });
+             }
+         });
+
+       
+
+     
+
+    });
+</script>

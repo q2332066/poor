@@ -1,0 +1,507 @@
+﻿<style>
+    /* 左树 */
+    #organizationTree1Bar {
+        padding: 10px 15px;
+        border: 1px solid #e6e6e6;
+        background-color: #f2f2f2;
+    }
+
+    #organizationTree1 {
+        border: 1px solid #e6e6e6;
+        border-top: none;
+        padding: 10px 5px;
+        overflow: auto;
+        height: -webkit-calc(100vh - 263px);
+        height: -moz-calc(100vh - 263px);
+        height: calc(100vh - 263px);
+    }
+
+    .layui-tree-entry .layui-tree-txt {
+        padding: 0 5px;
+        border: 1px transparent solid;
+        text-decoration: none !important;
+    }
+
+    .layui-tree-entry.ew-tree-click .layui-tree-txt {
+        background-color: #fff3e0;
+        border: 1px #FFE6B0 solid;
+    }
+
+    /* 右表搜索表单 */
+    #organizationUserTbSearchForm .layui-form-label {
+        box-sizing: border-box !important;
+        width: 90px !important;
+    }
+
+    #organizationUserTbSearchForm .layui-input-block {
+        margin-left: 90px !important;
+    }
+</style>
+<!-- 正文开始 -->
+<div class="layui-fluid" style="padding-bottom: 0;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding: 10px;">
+                   
+                    <!-- 左树 -->
+                    <div id="organizationTree1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding: 10px;">
+                    <!-- 数据表格 -->
+                    <table id="organizationUserTable1" lay-filter="organizationUserTable1"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="organizationUserTbBar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="reset">重置密码</a>
+</script>
+<!-- 表格状态列 -->
+<script type="text/html" id="organizationUserTbState">
+   <input type="checkbox" lay-filter="userTbStateCk" value="{{d.uid}}" lay-skin="switch"
+           lay-text="正常|锁定" {{!d.isDeleted?'checked':''}} style="display: none;"/>
+    <p style="display: none;">{{d.state==0?'正常':'锁定'}}</p>
+</script>
+<!-- 表格工具列 -->
+<script type="text/html" id="organizationUserTbToolBar">
+    <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
+        <i class="layui-icon">&#xe654;</i>添加
+    </button>&nbsp;
+    <button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
+        <i class="layui-icon">&#xe640;</i>删除
+    </button>&nbsp;
+    <div class="dropdown-menu">
+        <button class="layui-btn layui-btn-sm layui-btn-warm icon-btn">
+            <i class="layui-icon">&#xe615;</i>搜索
+        </button>
+        <div class="dropdown-menu-nav dropdown-bottom-right"
+             style="width: 300px;padding: 15px 15px 0 0;">
+            <div class="dropdown-anchor"></div>
+            <div class="layui-form" id="organizationUserTbSearchForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">账&emsp;号:</label>
+                    <div class="layui-input-block">
+                        <input name="username" class="layui-input" placeholder="输入账号"/>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名:</label>
+                    <div class="layui-input-block">
+                        <input name="nickName" class="layui-input" placeholder="输入用户名"/>
+                    </div>
+                </div>
+               
+                <div class="layui-form-item text-right">
+                    <button class="layui-btn icon-btn" lay-filter="organizationUserTbSearch" lay-submit>
+                        <i class="layui-icon">&#xe615;</i>搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 表单弹窗 -->
+<script type="text/html" id="userEditDialog">
+    <form id="userEditForm" lay-filter="userEditForm" class="layui-form model-form">
+        <input name="userId" type="hidden"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-form-required">账号:</label>
+            <div class="layui-input-block">
+                <input name="userName" placeholder="请输入账号" class="layui-input"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-form-required">密码:</label>
+            <div class="layui-input-block">
+                <input name="password" placeholder="请输入密码" class="layui-input"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-form-required">用户昵称:</label>
+            <div class="layui-input-block">
+                <input name="showName" placeholder="请输入用户名" class="layui-input"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-form-required">用户等级:</label>
+                <div class="layui-input-block">
+                    <select name="level" lay-verType="tips" lay-verify="required">
+                        <option value="">请选择</option>
+                        <option value="1">市级管理员</option>
+                        <option value="2">区县级管理员</option>
+                        <option value="3">乡镇级管理员</option>
+                        <option value="4">安置点管理员</option>
+                    </select>
+                </div>
+            </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label layui-form-required">角色:</label>
+            <div class="layui-input-block">
+                <div id="roleName"></div>
+            </div>
+        </div>
+        <div class="layui-form-item text-right">
+            <button class="layui-btn" lay-filter="userEditSubmit" lay-submit>保存</button>
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        </div>
+    </form>
+</script>
+
+<!-- js部分 -->
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tree = layui.tree;
+        var xmSelect = layui.xmSelect;
+        var selObj, treeData;  // 左树选中数据
+        form.render('select', 'userTbSearchForm');
+        var setter = layui.setter;
+        var insTb;
+
+       /* 渲染树形 */
+       function renderTree() {
+            $.ajax({
+                url: setter.baseServer + 'region/est/city/list',
+                type: 'post',
+                async: false,
+                headers: {"token":layui.data(layui.setter.tableName)['token']},
+                success: function (res) {
+                if(res&&res.data){
+                    res.data.forEach(function(item){
+                        item.title = item.cityName;
+                        item.id = item.patentId;
+                        item.cityId = item.patentId;
+                        item.disId = null;
+                        item.towId = null;
+                        item.rid = null;
+                        item.spread = false;
+                        // 第二级
+                        if(item.children&&item.children.length){
+                            item.children.forEach(function(itemTwo){
+                                itemTwo.title = itemTwo.cityName;
+                                itemTwo.cityId = itemTwo.patentId;
+                                itemTwo.disId = itemTwo.cId;
+                                itemTwo.towId = null;
+                                itemTwo.rid=null;
+                                itemTwo.id = itemTwo.cId;
+                                itemTwo.spread = false;
+                                // 第三级
+                                if(itemTwo.children&&itemTwo.children.length){
+                                    itemTwo.children.forEach(function(itemThree){
+                                        itemThree.title = itemThree.cityName;
+                                        itemThree.cityId = itemTwo.patentId;
+                                        itemThree.disId = itemTwo.cId;
+                                        itemThree.towId = itemThree.cId;
+                                        itemThree.rid = null;
+                                        itemThree.id = itemThree.cId;
+                                        itemThree.spread = false;
+                                        // 第四级
+                                        if(itemThree.children&&itemThree.children.length){
+                                            itemThree.children.forEach(function(itemFour){
+                                                itemFour.title = itemFour.resettlementPoint;
+                                                itemFour.id = itemFour.rId;
+                                                itemFour.cityId = itemTwo.patentId;
+                                                itemFour.disId = itemTwo.cId;
+                                                itemFour.towId = itemThree.id;
+                                                itemFour.rid =  itemFour.rid;
+                                                itemFour.spread = false;
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                            
+                            
+                            
+
+                        }
+                    })
+                }
+               //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
+                treeData = res.data?res.data:[]
+                tree.render({
+                    elem: '#organizationTree1',
+                    onlyIconControl: true,
+                    data: treeData,
+                    click: function (obj) {
+                        console.log(obj)
+                        selObj =  obj;
+                        var thisObj = obj.data
+                        $('#organizationTree1').find('.ew-tree-click').removeClass('ew-tree-click');
+                        $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
+                        var setObj = new Object()
+                        setObj = {
+                            "cityId": thisObj.cityId ,
+                            "disId": thisObj.disId,
+                            "towId": thisObj.towId,
+                            "resId": thisObj.resId
+                            
+                        }
+                        insTb.reload({
+                            method:'post',
+                            where: setObj,
+                            contentType: 'application/json',
+                            url: setter.baseServer + 'min/est/user/selectUser',
+                            headers: {"token":layui.data(layui.setter.tableName)['token']},
+                        });
+                        
+                    }
+                });
+            }
+        });
+            
+        }
+
+        renderTree();
+
+        /* 渲染表格 */
+        var insTb = table.render({
+            elem: '#organizationUserTable1',
+            data: [],
+            height: 'full-190',
+            page: true,
+            toolbar: '#organizationUserTbToolBar',
+            cellMinWidth: 50,
+            cols: [[
+                {type: 'checkbox'},
+                {type: 'numbers'},
+                {field: 'showName', title: '用户名',width: 100,align: 'center',},
+                {field: 'userName', title: '账号',width: 100,align: 'center', },
+   
+                { field: 'level', title: '账号等级', width: 130, align: 'center', templet: function (item){
+
+                    if (item.level == '0') {
+                                return "超级管理员";
+                        } else if (item.level == '1') {
+                                return "市级管理员";
+                        } else if (item.level == '2') {
+                                return "区县管理员";
+                            } else if (item.level == '3') {
+                                return "乡镇管理员";
+                            } else if (item.level == '4') {
+                                return "安置点管理员";
+                        } else {
+                            return "";
+                      
+
+                }
+
+                }},
+                {
+                    field: 'roleName', title: '角色', templet: function (data) {
+                        var name = data.roleTable&&data.roleTable.length&&data.roleTable[0].roleName;
+                        return name;
+                    }, sort: true, width: 150
+                },
+                
+                { field: 'createTime', title: '创建时间',width: 200,  align: 'center',templet: function (d) {
+                        return util.toDateString(d.createTime);
+                    }, 
+                },
+                {field: 'state', title: '状态', templet: '#organizationUserTbState', sort: true, width: 100},
+                 {title: '操作', toolbar: '#organizationUserTbBar', align: 'center', width: 250, minWidth: 120}
+            ]],
+            done: function () {
+                // 表格搜索
+                form.on('submit(organizationUserTbSearch)', function (data) {
+                    insTb.reload({where: data.field, page: {curr: 1}});
+                    return false;
+                });
+            }
+        });
+    
+    $('#organizationTree1').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
+
+    /* 表格工具条点击事件 */
+    table.on('tool(organizationUserTable1)', function (obj) {
+        if (obj.event === 'edit') { // 修改
+                showEditModel(obj.data);
+               
+            } else if (obj.event === 'del') { // 删除
+               var ids = [];
+               ids.push(obj.data.uid)
+                doDel({ids: ids});
+            } else if (obj.event === 'reset') { // 重置密码
+                resetPsw(obj);
+            }
+        });
+       
+     /* 表格头工具栏点击事件 */
+     table.on('toolbar(organizationUserTable1)', function (obj) {
+            if (obj.event === 'add') { // 添加
+                showEditModel();
+            } else if (obj.event === 'del') { // 删除
+                var checkRows = table.checkStatus('organizationUserTable1');
+                if (checkRows.data.length === 0) {
+                    layer.msg('请选择要删除的数据', {icon: 2});
+                    return;
+                }
+                var ids = checkRows.data.map(function (d) {
+                    return d.uid;
+                });
+                doDel({ids: ids});
+            }
+        });
+
+       /* 显示表单弹窗 */
+        function showEditModel(mData) {
+            admin.open({
+                type: 1,
+                title: (mData ? '修改' : '添加') + '用户',
+                content: $('#userEditDialog').html(),
+                success: function (layero, dIndex) {
+                    // 回显表单数据
+                    form.val('userEditForm', mData);
+                    // 表单提交事件
+                    form.on('submit(userEditSubmit)', function (data) {
+                        data.field.roleIds = insRoleSel.getValue('valueStr');
+                        data.field.regionalId = user_info.regionalId
+                        data.field.roleId = data.field.roleIds.split(',')
+                        var loadIndex = layer.load(2);
+                        $.ajax({
+                        url:mData?setter.baseServer+'min/est/user/updateuser':setter.baseServer+'min/est/user/save',
+                        type:'POST',
+                        headers: {"token":layui.data(layui.setter.tableName)['token']},
+                        data:JSON.stringify(data.field),//向服务端发送删除的id
+                        contentType: "application/json;charset=UTF-8",
+                        success:function(res){
+                            layer.close(loadIndex);
+                            if (res.code === 0) {
+                                layer.close(dIndex);
+                                layer.msg(res.msg, {icon: 1});
+                                insTb.reload({page: {curr: 1}});
+                            } else {
+                                layer.msg(res.msg, {icon: 2});
+                            }
+                        }
+                    });
+                       
+                    });
+                    // 渲染多选下拉框
+                    var insRoleSel = xmSelect.render({
+                        el: '#roleName',
+                        name: 'roleName',
+                        layVerify: 'required',
+                        layVerType: 'tips',
+                        data: [{
+                         
+                            name: '市级',
+                            value: "1"
+                        }, {
+                            name: '区县级',
+                            value: "2"
+                        }, {
+                            name: '乡镇级',
+                            value: "3"
+                        }, {
+                            name: '安置点级',
+                            value: "4"
+                        }]
+                    });
+                    // 回显选中角色
+                    if (mData && mData.roles) {
+                        insRoleSel.setValue(mData.roles.map(function (item) {
+                            return item.roleId;
+                        }));
+                    }
+                    // 禁止弹窗出现滚动条
+                    $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                }
+            });
+      
+        }
+
+        /* 删除2 */
+        function doDel(obj) {
+            console.log(obj)
+            layer.confirm('确定要删除选中用户吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                var loadIndex = layer.load(2);
+                
+                  $.ajax({
+                        url:setter.baseServer + 'min/est/user/deletelist',
+                        type:'POST',
+                        async:false,
+                        data:JSON.stringify(obj),//向服务端发送删除的id
+                        headers: {"token":layui.data(layui.setter.tableName)['token']},
+                        contentType: "application/json;charset=UTF-8",
+                    
+                        success:function(res){
+                           if (0=== res.code) {
+                            layer.msg(res.msg, { icon: 1 });
+                            insTb.reload({ page: { curr: 1 } });
+                        } else {
+                            layer.msg(res.msg, { icon: 2 });
+                        }
+                        }
+                    });
+                    layer.close(loadIndex); 
+                     });
+        }
+          /* 修改用户状态 */
+          form.on('switch(userTbStateCk)', function (obj) {
+              console.log(obj)
+            var loadIndex = layer.load(2);
+
+            
+            admin.req('/min/est/user/remove', {
+           
+                uid: obj.elem.value,
+                
+                state: obj.elem.checked ? 0 : 1
+            }, function (res) {
+                layer.close(loadIndex);
+                if (res.code === 0) {
+                    layer.msg(res.msg, {icon: 1, time:1000});
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                    $(obj.elem).prop('checked', !obj.elem.checked);
+                    form.render('checkbox');
+                }
+            }, 'post');
+        });
+        function resetPsw(obj) {
+            layer.confirm('确定要重置“' + obj.data.showName + '”的登录密码吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                var loadIndex = layer.load(2);
+                admin.req('min/est/user/update', {
+                    uid: obj.data.uid
+                }, function (res) {
+                    layer.close(loadIndex);
+                    if (res.code === 0) {
+                        layer.msg(res.msg, {icon: 1});
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'post');
+            });
+        }
+
+    });
+</script>

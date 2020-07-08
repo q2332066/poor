@@ -1,0 +1,158 @@
+[
+  {
+    "name": "主页",
+    "url": "javascript:;",
+    "icon": "layui-icon layui-icon-home",
+    "subMenus": [
+      {
+        "name": "控制台",
+        "url": "#/console/console"
+      }
+    ]
+  },
+  {
+    "name": "数据展示",
+    "icon": "layui-icon layui-icon-release",
+    "url": "javascript:;",
+    "subMenus": [
+     
+      {
+        "name": "防返贫监测平台",
+        "url": "#/layui/doc",
+        "iframe": "http://219.144.46.98"
+      },
+      {
+        "name": "大屏端展示",
+        "url": "#/layui/layer",
+        "iframe": "https://datav.aliyuncs.com/share/81ea576023270e8326013dc41c19ed1e/"
+      },
+      {
+        "name": "移动端展示",
+        "url": "#/layui/laydate",
+        "iframe": "https://datav.aliyuncs.com/share/e98fd4375aad448ebe2ae3fd12e32c46"
+      }
+    ]
+  },
+  
+  
+ 
+    
+    {
+    "name": "人员管理",
+    "icon": "layui-icon layui-icon-template",
+    "url": "javascript:;",
+    "subMenus": [
+      
+          {
+            "name": "人员所有信息表",
+            "url": "#/template/form/form-pover"
+          },
+          {
+            "name": "人员基本信息表",
+            "url": "#/template/form/form-basic"
+          },
+          {
+            "name": "就业创业政策保障",
+            "url": "#/template/form/form-obtain"
+          },
+          {
+            "name": "产业发展政策保证",
+            "url": "#/template/form/form-industry"
+          },
+          {
+            "name": "已享受帮扶政策",
+            "url": "#/template/form/form-guarantee"
+          },
+
+         
+      {
+        "name": "快速录入",
+        "url": "#/template/form/excl"
+      }
+    ]
+  },
+  
+ 
+  
+  {
+    "name": "用户管理",
+    "icon": "layui-icon layui-icon-set",
+    "url": "javascript:;",
+    "subMenus": [
+      {
+        "name": "用户管理",
+        "url": "#/system/user"
+      },
+      {
+        "name": "角色管理",
+        "url": "#/system/role"
+      },
+      {
+          "name": "部门管理人员",
+          "url": "#/system/organization"
+        }
+    ]
+  },
+  {
+    "name": "系统管理",
+    "icon": "layui-icon layui-icon-app",
+    "url": "javascript:;",
+    "subMenus": [
+      {
+        
+          "name": "权限管理",
+          "url": "#/system/authorities"
+        },
+        
+        {
+          "name": "部门管理",
+          "url": "#/system/peopot"
+        }
+    ]
+  },
+  {
+    "name": "用户设置",
+    "icon": "layui-icon layui-icon-component",
+    "url": "javascript:;",
+    "subMenus": [
+     
+     
+      {
+        "name": "修改密码",
+        "url": "#/tpl/password"
+      }
+    ]
+  },
+  {
+    "name": "省系统对接",
+    "icon": "layui-icon-unlink",
+    "url": "javascript:;",
+    "subMenus":[
+      {
+        "name": "安置点搬迁人员信息",
+      "url": "#/province/user/people"
+    },
+    {
+      
+      "name": "安置点搬迁户信息",
+      "url": "#/province/user/relocated"
+    },
+    {
+      "name": "产业发展政策保障",
+      "url": "#/province/form/industry"
+    },
+    {
+      "name": "已享受帮扶政策",
+      "url": "#/province/form/enjoy"
+    }
+
+    ]
+
+
+  },
+  {
+    "name": "路由传参",
+    "url": "#/tpl/tuichu",
+    "show": false
+  }
+]

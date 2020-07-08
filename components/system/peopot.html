@@ -1,0 +1,335 @@
+<style>
+
+    
+    /* 左树 */
+    #organizationTreeBar {
+        padding: 10px 15px;
+        border: 1px solid #e6e6e6;
+        background-color: #f2f2f2;
+    }
+
+    #organizationTree {
+        border: 1px solid #e6e6e6;
+        border-top: none;
+        padding: 10px 5px;
+        overflow: auto;
+        height: -webkit-calc(100vh - 263px);
+        height: -moz-calc(100vh - 263px);
+        height: calc(100vh - 263px);
+    }
+
+
+</style>
+<!-- 正文开始 -->
+<div class="layui-fluid" style="padding-bottom: 0;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md3">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding: 10px;">
+                    <!-- 树工具栏 -->
+                    <div class="layui-form toolbar" id="organizationTreeBar">
+                        <button id="organizationAddBtn" class="layui-btn layui-btn-sm icon-btn">
+                            <i class="layui-icon">&#xe654;</i>添加
+                        </button>&nbsp;
+                        <button id="organizationDelBtn"
+                                class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
+                            <i class="layui-icon">&#xe640;</i>删除
+                        </button>
+                    </div>
+                    <!-- 左树 -->
+                    <div id="organizationTree"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md9">
+            <div class="layui-card">
+                <div class="layui-card-body" style="padding: 10px;">
+                    <!-- 数据表格 -->
+                    <table id="organizationUserTable" lay-filter="organizationUserTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 表单弹窗1 -->
+<script type="text/html" id="organizationEditDialog">
+    <form id="organizationEditForm" lay-filter="organizationEditForm" class="layui-form model-form"
+          style="padding-right: 20px;">
+        <input name="organizationId" type="hidden"/>
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">上级机构:</label>
+                    <div class="layui-input-block">
+                        <div id="organizationEditParentSel" class="ew-xmselect-tree"></div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label layui-form-required">机构名称:</label>
+                    <div class="layui-input-block">
+                        <input name="organizationName" placeholder="请输入机构名称" class="layui-input"
+                               lay-verType="tips" lay-verify="required" required/>
+                    </div>
+                </div>    
+        </div>
+        <div class="layui-form-item text-right">
+            <button class="layui-btn" lay-filter="organizationEditSubmit" lay-submit>保存</button>
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        </div>
+    </form>
+</script>
+<!-- 表格操作列 -->
+<script type="text/html" id="organizationUserTbBar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+
+<!-- js部分 -->
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable','tree'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tree = layui.tree;
+        var xmSelect = layui.xmSelect;
+        var selObj, treeData;  // 左树选中数据
+        var treeNodeParam = {}//已选节点
+        var setter = layui.setter;
+        /* 渲染树形 */
+        function renderTree() {
+            $.ajax({url:setter.baseServer + 'region/est/city/list',
+            type: 'post',
+            headers: {"token":layui.data(layui.setter.tableName)['token']},
+                success: function (res) {
+                if(res&&res.data){
+                    res.data.forEach(function(item){
+                        item.title = item.cityName;
+                        item.id = item.patentId;
+                        item.spread = true;
+                        item.value = item.patentId;
+                        item.name = item.cityName;
+                        // 第二级
+                        if(item.children&&item.children.length){
+                            item.children.forEach(function(itemTwo){
+                                itemTwo.title = itemTwo.cityName;
+                                itemTwo.id = itemTwo.cId;
+                                itemTwo.spread = true;
+                                itemTwo.value = itemTwo.cId;
+                                itemTwo.name = itemTwo.cityName;
+                                // 第三级
+                                if(itemTwo.children&&itemTwo.children.length){
+                                    itemTwo.children.forEach(function(itemThree){
+                                        itemThree.title = itemThree.cityName;
+                                        itemThree.id = itemThree.cId;
+                                        itemThree.spread = true;
+                                        itemThree.value = itemThree.cId;
+                                        itemThree.name = itemThree.cityName;
+                                        // 第四级
+                                        if(itemThree.children&&itemThree.children.length){
+                                            itemThree.children.forEach(function(itemFour){
+                                                itemFour.title = itemFour.resettlementPoint;
+                                                itemFour.id = itemFour.cId;
+                                                itemFour.spread = true;
+                                                itemFour.value = itemFour.cId;
+                                                itemFour.name = itemFour.resettlementPoint;
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                            
+                            
+
+                        }
+                    })
+                }
+                //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
+                treeData = res.data?res.data:[]
+                console.log(treeData)
+                tree.render({
+                    elem: '#organizationTree',
+                    onlyIconControl: true,
+                    data: treeData,
+                    click: function (obj) {
+                        selObj = obj;
+                        $('#organizationTree').find('.ew-tree-click').removeClass('ew-tree-click');
+                        $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
+                        // insTb.reload({
+                        //     where: {organizationId: obj.data.organizationId},
+                        //     page: {curr: 1},
+                           
+                        // });
+                    }
+                });
+                $('#organizationTree').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
+            }});
+        }
+
+        renderTree();
+
+        /* 添加 */
+        $('#organizationAddBtn').click(function () {
+            showEditModel(null, selObj ? selObj.data.parentId : null);
+        });
+
+        /* 修改 */
+        $('#organizationEditBtn').click(function () {
+            if (!selObj) return layer.msg('未选择机构', {icon: 2});
+            showEditModel(selObj.data);
+        });
+
+        /* 删除 */
+        $('#organizationDelBtn').click(function () {
+            if (!selObj) return layer.msg('未选择机构', {icon: 2});
+            doDel(selObj);
+        });
+
+        /* 显示表单弹窗 */
+        function showEditModel(mData, pid) {
+      
+            admin.open({
+                type: 1,
+                area: '600px',
+                title: (mData ? '修改' : '添加') + '机构',
+                content: $('#organizationEditDialog').html(),
+                success: function (layero, dIndex) {
+                    // 回显表单数据
+                    form.val('organizationEditForm', mData);
+                    // 表单提交事件
+                    form.on('submit(organizationEditSubmit)', function (data) {
+                       
+                        data.field.parentId = insXmSel.getValue('valueStr');
+                        var loadIndex = layer.load(2);
+                         var setObj={};   
+                        if(!treeNodeParam.cId) {
+                            setObj.ciId=treeNodeParam.id;
+                        }    
+                        if(treeNodeParam.children.length==0){
+                            setObj.tId=treeNodeParam.cId;
+                        }
+                        if(treeNodeParam.children.length!=0&&treeNodeParam.cId){
+                            setObj.dId=treeNodeParam.cId;     
+                        }
+                        setObj.name=data.field.organizationName;
+                        // var setObj = {
+                        //     "cityId": treeNodeParam.cityId,
+                        //     "disId": treeNodeParam.disId,
+                        //     "resettlementPointId": treeNodeParam.resettlementPointId,
+                        //     "towId": treeNodeParam.towId,
+                        //     "name":
+                        // } 
+                       console.log(setObj);
+                         if(!mData) {
+                            
+                            $.ajax({
+                                url:setter.baseServer+'region/est/city/save',
+                                type:'POST',
+                                data:{"ciId":setObj.ciId,"tId":setObj.tId,"dId":setObj.dId,"name":setObj.name},
+                               
+                                success:function(res){
+                                    layer.close(loadIndex);
+
+                                    if (200 === res.code) {
+                                        layer.close(dIndex);
+                                        layer.msg(res.msg, {icon: 1});
+                                        renderTree();
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+                                }
+                            })
+                         }  
+                           
+                        // admin.req(mData ? 'region/est/city/update' : 'region/est/city/save', setObj, function (res) {
+                        //     layer.close(loadIndex);
+
+                        //     if (200 === res.code) {
+                        //         layer.close(dIndex);
+                        //         layer.msg(res.msg, {icon: 1});
+                        //         renderTree();
+                        //     } else {
+                        //         layer.msg(res.msg, {icon: 2});
+                        //     }
+                        // }, 'post');
+
+                        return false;
+                    });
+                    // 拷贝树数据
+                    var thisData = JSON.parse(JSON.stringify(treeData))
+                     thisData.forEach(function(item){
+                        if(item.children&&item.children.length){
+                            item.children.forEach(function(items){
+                                if(items.children&&items.children.length){
+                                    items.children.forEach(function(itemT){
+                                        if(itemT.children&&itemT.children.length){
+                                           itemT.children = []
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                    // 渲染下拉树
+                    var insXmSel = xmSelect.render({
+                        el: '#organizationEditParentSel',
+                        height: '250px',
+                        data(){
+                            return thisData
+                        },
+                        // initValue: mData ? [mData.parentId] : (pid ? [pid] : []),
+                        model: {label: {type: 'text'}},
+                        // prop: {
+                        //     name: 'organizationName',
+                        //     value: 'organizationId'
+                        // },
+                        radio: true,
+                        clickClose: true,
+                        tree: {
+                            show: true,
+                            indent: 15,
+                            strict: false,
+                            expandedKeys: true
+                        },
+                        on: function(data){
+                            // 已选节点
+                            treeNodeParam = data.change[0];
+                          console.log(treeNodeParam)
+                    
+                        }
+                    });
+                    // 禁止弹窗出现滚动条
+                    $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                }
+            });
+        }
+
+        /* 删除 */
+        function doDel(obj) {
+            layer.confirm('确定要删除此机构吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                var loadIndex = layer.load(2);
+                admin.req('ok.json', {
+                    id: obj.data.organizationId,
+                }, function (res) {
+                    layer.close(loadIndex);
+                    if (200 === res.code) {
+                        layer.msg(res.msg, {icon: 1});
+                        renderTree();
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'get');
+            });
+        }
+
+    });
+</script>

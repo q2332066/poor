@@ -1,0 +1,303 @@
+<style>
+    /* 文件列表item */
+    .file-choose-list-item {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        padding: 8px 8px;
+        margin: 5px 0;
+        cursor: pointer;
+    }
+
+    .file-choose-list-item:hover {
+        background-color: #F7F7F7;
+    }
+
+    /* 文件列表图片 */
+    .file-choose-list-item-img {
+        width: 90px;
+        height: 90px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        border-radius: 3px;
+        overflow: hidden;
+        position: relative;
+        background-color: #eee;
+    }
+
+    .file-choose-list-item-img.img-icon {
+        background-size: inherit;
+        background-color: transparent;
+    }
+
+    .file-choose-list-item.active .file-choose-list-item-img:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* 文件列表名称 */
+    .file-choose-list-item-name {
+        width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #333;
+        font-size: 12px;
+        text-align: center;
+        margin-top: 12px;
+    }
+
+    /* 文件列表复选框 */
+    .file-choose-list-item-ck {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+    }
+
+    .file-choose-list-item-ck .layui-form-checkbox {
+        padding: 0;
+    }
+
+    /* 文件列表操作菜单 */
+    .file-choose-oper-menu {
+        background-color: #fff;
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        border-radius: 2px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .15);
+        transition: all .3s;
+        overflow: hidden;
+        transform: scale(0);
+        transform-origin: left top;
+        visibility: hidden;
+    }
+
+    .file-choose-oper-menu.show {
+        transform: scale(1);
+        visibility: visible;
+    }
+
+    /* 文件列表操作菜单item */
+    .file-choose-oper-menu-item {
+        color: #555;
+        padding: 6px 5px;
+        font-size: 14px;
+        min-width: 70px;
+        text-align: center;
+        cursor: pointer;
+        display: block;
+    }
+
+    .file-choose-oper-menu-item:hover {
+        background-color: #eee;
+    }
+
+    /** 文件列表为空时样式 */
+    .file-choose-empty {
+        text-align: center;
+        color: #999;
+        padding: 50px 0;
+    }
+
+    .file-choose-empty .layui-icon {
+        font-size: 60px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+</style>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-header"><span class="layui-badge layui-bg-cyan">上传进度</span>  <span id="total">0/0</span>
+            <span class="layui-badge" id="error" ></span>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-card-body layui-text" style="color: #333;">
+                <div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="demo">
+                    <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <button class="layui-btn layui-btn-sm" style="background-color: #10A9FF;" id="importExcel">
+        <i class="layui-icon"></i>上传文件
+    </button>
+    <button class="layui-btn layui-btn-sm" style="background-color: #101010;" onclick="downloadTemplate()">
+        <i class="layui-icon"></i>模板下载
+    </button>
+</div>
+<div id="file-list-group"></div>
+</div>
+</div>
+</div>
+<!-- js部分 -->
+<script>
+
+    layui.use(['table', 'jquery', 'layer', 'upload', 'excel', 'element'], function () {
+        var table = layui.table
+            , $ = layui.jquery
+            , layer = layui.layer
+            , upload = layui.upload
+            , excel = layui.excel
+            , setter = layui.setter
+            , admin = layui.admin
+            , element = layui.element;
+        var setter = layui.setter;
+
+        $("#error").hide()
+        //初始化进度条
+        element.init()
+        var loading = function(othis){
+            // var DISABLED = 'layui-btn-disabled';
+            // if(othis.hasClass(DISABLED)) return;
+            $("#error").hide()
+            element.progress('demo', '0%')
+            //模拟loading
+            var n = 0, timer = setInterval(function(){
+                // n = n + Math.random()*10|0;
+                admin.req('api/est/person/import/progress', {}, function (res) {
+                    var total = res.data.total
+                    var current = res.data.current
+                    var error = res.data.error
+                    var div = (current + error)/total
+
+                    $("#error").text("失败：" + error)
+                    $("#error").show()
+                    $("#total").text(current + '/' + total);
+                    if(div>=1){
+                        clearInterval(timer);
+                        // othis.removeClass(DISABLED);
+                    }
+                    element.progress('demo', parseInt(div*100)+'%');
+                }, 'get');
+            }, 1500);
+
+            // othis.addClass(DISABLED);
+        }
+
+        $("#showDig").click(function(){
+            element.progress('demo', '0%')
+            loading()
+        });
+
+        //upload上传实
+        var uploadInst = upload.render({
+            elem: '#importExcel' //绑定元素
+            , url: setter.baseServer + 'api/est/person/import'
+            //上传接口（PS:这里不用传递整个 excel）
+            , auto: true //选择文件后不自动上传
+            , headers: {"token": layui.data(layui.setter.tableName)['token']}
+            , accept: 'file'
+            , exts: 'xlsx'
+            , before: function(obj){
+                loading()
+            }
+            , error: function (index, upload) {
+                console.log(index, upload)
+            }
+            , done: function (res) {
+                if (0 === res.code) {
+                    layer.msg(res.msg, {icon: 1});
+                } else {
+                    layer.msg(res.msg, {icon: 2});
+                }
+            }
+        })
+
+        /**
+         * 上传excel的处理函数，传入文件对象数组
+         * @param  {[type]} files [description]
+         * @return {[type]}       [description]
+         */
+        function uploadExcel(files) {
+            try {
+                excel.importExcel(files, {
+                    // 读取数据的同时梳理数据
+                    fields: {
+                        'vmNo': 'A'
+                        , 'vmAL': 'B'
+                        , 'vmName': 'C'
+                        , 'vmExp': 'D'
+                        , 'vmStartDate': 'E'
+                        , 'vmEndDate': 'F'
+                        , 'vmNum': 'G'
+                        , 'vmPer': 'H'
+                    }
+                }, function (data) {
+                    // console.debug(data);
+                    $.each(data, function (index, obj) {
+                        // console.debug(obj)
+                        // console.debug(obj.Sheet1)
+                        $.each(obj.Sheet1, function (index, object) {
+                            console.log(object);
+                            var vmNo = object.vmNo;
+                            var vmAL = object.vmAL;
+                            var vmName = object.vmName;
+                            var vmExp = object.vmExp;
+                            var vmStartDate = object.vmStartDate;
+                            var vmEndDate = object.vmEndDate;
+                            var vmNum = object.vmNum;
+                            var vmPer = object.vmPer;
+                            console.log(object.vmEndDate);
+
+                            if (vmNo == "编号") {
+
+                            } else {
+                                $.ajax({
+                                    // async: false,
+                                    url: 'addVM',//产品型号下拉框
+                                    type: 'post',
+                                    // dataType: "json",
+                                    // contentType: "application/json",
+                                    data: {},
+                                    success: function (data) {
+                                        layer.msg('上传成功');
+                                        table.reload('test', {
+                                            url: "findAllVM"
+                                        })
+                                    },
+                                    error: function (msg) {
+                                        layer.msg('请联系管理员!!!');
+                                    }
+                                });
+                            }
+                        })
+                    });
+
+                    // 如果不需要展示直接上传，可以再次 $.ajax() 将JSON数据通过 JSON.stringify() 处理后传递到后端即可
+                    /*layer.open({
+                        title: '文件转换结果'
+                        , area: ['800px', '400px']
+                        , offset: ['100px', '100px']
+                        , tipsMore: true
+                        , content: laytpl($('#LAY-excel-export-ans').html()).render({data: data, files: files})
+                        , success: function () {
+                            // element.render('tab')
+                            code({})
+                        }
+                    })*/
+                })
+            } catch (e) {
+                layer.alert(e.message)
+            }
+        }
+    });
+
+    function downloadTemplate() {
+
+        //这里ctx因为引入了静态文件，根据自己的接口配置路径
+        window.location.href = "assets/images/mb.xlsx";
+
+    }
+</script>

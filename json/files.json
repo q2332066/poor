@@ -1,0 +1,22 @@
+{
+  "msg": "查询成功",
+  "code": 200,
+  "data": [
+    {
+      "name": "其他",
+      "updateTime": 1545804042000,
+      "type": "dir",
+      "isDir": true
+    },
+  
+    {
+      "name": "铜川易地扶贫一览表.xls",
+      "updateTime": 1545803726000,
+      "type": "xls",
+      "url": "https://pic.qqtn.com/up/2018-9/15367146917869444.xls",
+      "isDir": false
+    }
+   
+    
+  ]
+}

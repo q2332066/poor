@@ -1,0 +1,48 @@
+{
+    "code": 200,
+    "msg": "",
+    "data": [
+      {
+        "name": "主页 ",
+        "checked": true,
+        "pId": -1,
+        "id": 1,
+        "open": true
+      },
+      {
+        "name": "控制台",
+        "checked": true,
+        "pId": 1,
+        "id": 3,
+        "open": true
+      },
+      {
+        "name": "数据展示 ",
+        "checked": true,
+        "pId": -1,
+        "id": 2,
+        "open": true
+      },
+      {
+        "name": "防返贫监测平台",
+        "checked": true,
+        "pId": 2,
+        "id": 4,
+        "open": true
+      },
+      {
+        "name": "大屏端展示",
+        "checked": true,
+        "pId": 2,
+        "id": 5,
+        "open": true
+      },
+      {
+        "name": "移动端展示",
+        "checked": true,
+        "pId": 2,
+        "id": 6,
+        "open": true
+      }
+    ]
+  }
