@@ -69,10 +69,10 @@ layui.config({
             let users = transfer.getData('roleuser');
             let ids = [];
             for(var i in users){
-                ids.push({userId: users[i].value, roleId: fengtoos.getQueryString("id")});
+                ids.push({userId: users[i].value, roleId: getQueryString("id")});
             }
 
-            admin.req('role/add/user/' + fengtoos.getQueryString("id"), JSON.stringify(ids), function(resp){
+            admin.req('role/add/user/' + getQueryString("id"), JSON.stringify(ids), function(resp){
                 if(resp && resp.code == 0){
                     //发异步，把数据提交给php
                     layer.alert("保存成功", {

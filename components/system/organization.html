@@ -159,6 +159,7 @@
                 <button class="layui-btn" lay-filter="userEditSubmit" lay-submit>保存</button>
                 <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
             </div>
+        </div>
     </form>
 </script>
 
@@ -313,8 +314,8 @@
                 },
                 {
                     field: 'roleName', title: '角色', templet: function (data) {
-                        var name = data.roleTable && data.roleTable.length && data.roleTable[0].roleName;
-                        return name;
+                        var name = data.roleTable && data.roleTable.length && data.roleTable[0].name;
+                        return name==0?"":name;
                     }, sort: true, width: 150
                 },
 
@@ -403,14 +404,14 @@
                                 }
                             }
                         });
-
+                        return false;
                     });
 
                     var insRoleSel;
-                    admin.req('role/list', {page:1,limit:1000}, function(resp){
+                    admin.req('role/list', {page: 1, limit: 1000}, function (resp) {
 
                         var r = resp.data.records
-                        for(var i in r){
+                        for (var i in r) {
                             r[i].value = r[i].id
                         }
 
@@ -457,7 +458,7 @@
                 layer.close(i);
                 var loadIndex = layer.load(2);
 
-                admin.req('min/est/user/deletelist',JSON.stringify(obj), function (res) {
+                admin.req('min/est/user/deletelist', JSON.stringify(obj), function (res) {
                     if (0 === res.code) {
                         layer.msg(res.msg, {icon: 1});
                         insTb.reload({page: {curr: 1}});
