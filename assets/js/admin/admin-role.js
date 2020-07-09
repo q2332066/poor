@@ -18,6 +18,7 @@ layui.use(['laydate', 'table'], function () {
 
     //执行一个 table 实例
     let userTable = table.render({
+        
         elem: '#admin_table'
         , url: setter.baseServer + 'role/list' //数据接口
         , title: '用户表'

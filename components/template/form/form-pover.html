@@ -1087,7 +1087,10 @@
                 doDel2({ids: ids});
             }
         });
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/remotes/origin/master
         /* 表格头工具栏点击事件 */
         table.on('toolbar(organizationUserTable2)', function (obj) {
             if (obj.event === 'add') { // 添加
@@ -1166,6 +1169,77 @@
 
             //三级联动 
 
+<<<<<<< HEAD
+    layer.ready(function(){
+        $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1",function (data) {
+            var $html = "";
+            if(data.data != null) {
+                $.each(data.data, function (index, item) {
+                    $html += "<option value='" + item.did + "'>" + item.district + "</option>";
+                });
+                $("#roleId").append($html);
+            }
+            form.render('select');
+        });
+        
+//监听乡镇下拉框
+
+form.on('select(roleId)', function(dataObj){
+    //移除城市下拉框所有选项
+    $("#account").empty();
+    var accountHtml = '<option value="">请选择或搜索市</option>';
+    $("#account").html(accountHtml);
+    var resettlementPointHtml = '<option value="">请选择或搜索县/区</option>';
+    $("#resettlementPoint").html(resettlementPointHtml);
+    roleIdText = $("#roleId").find("option:selected").text();
+    var value = $("#roleId").val();
+    //异步加载下拉框数据
+    
+    $.post(setter.baseServer + "region/est/township/select",{"disId":value},function (data) {
+        var $html = "";
+        if(data.data != null) {
+          $.each(data.data, function (index, item) {
+            $html += "<option value='" + item.tid + "'>" + item.township + "</option>";
+          });
+          $("#account").append($html);
+         
+          form.render('select');
+        }
+    });
+  
+  });
+  
+  //监听安置点
+  form.on('select(account)', function(dataObj){
+ 
+    $("#resettlementPoint").empty();
+    var html = '<option value="">请选择或搜索县/区</option>';
+    $("#resettlementPoint").html(html);
+  
+    accountText = $("#account").find("option:selected").text();
+    var value = $("#account").val();
+   
+    $.get(setter.baseServer + "region/est/resettlement/selectList",{"towId":value},function (data) {
+   
+        var $html = "";
+        if(data.data != null) {
+          $.each(data.data, function (index, item) {
+             
+            $html += "<option value='" + item.rid + "'>" + item.resettlementPoint + "</option>";
+            
+          });
+          $("#resettlementPoint").append($html);
+          //append后必须从新渲染
+          form.render('select');
+        }
+    //   }
+  
+    });
+  
+});
+    });
+
+=======
             layer.ready(function () {
                 $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1", function (data) {
                     var $html = "";
@@ -1234,6 +1308,7 @@
                 });
 
             });
+>>>>>>> refs/remotes/origin/master
         }
 
 
