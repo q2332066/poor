@@ -1081,15 +1081,6 @@
                 doDel2 ({ids: ids});
             }
         });
-// 表格头工具栏点击事件
-table .on('toolbar(organizationUserTbToolBar2)',function(obj){
-(obj.event==='export')
-
-
-
-
-})
-
         /* 表格头工具栏点击事件 */
         table.on('toolbar(organizationUserTable2)', function (obj) {
             if (obj.event === 'add') { // 添加
@@ -1153,7 +1144,7 @@ table .on('toolbar(organizationUserTbToolBar2)',function(obj){
 
             //三级联动 
 
-            layer.ready(function(){
+    layer.ready(function(){
         $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1",function (data) {
             var $html = "";
             if(data.data != null) {
@@ -1164,11 +1155,10 @@ table .on('toolbar(organizationUserTbToolBar2)',function(obj){
             }
             form.render('select');
         });
-
-    });
+        
 //监听乡镇下拉框
 
-  form.on('select(roleId)', function(dataObj){
+form.on('select(roleId)', function(dataObj){
     //移除城市下拉框所有选项
     $("#account").empty();
     var accountHtml = '<option value="">请选择或搜索市</option>';
@@ -1221,6 +1211,8 @@ table .on('toolbar(organizationUserTbToolBar2)',function(obj){
     });
   
 });
+    });
+
         }
 
       
