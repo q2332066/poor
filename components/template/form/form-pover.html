@@ -77,7 +77,7 @@
 <script type="text/html" id="organizationUserTbBar2">
     <!-- <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a> -->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
-    
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <!-- 表格工具列 -->
@@ -85,12 +85,16 @@
    <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
         <i class="layui-icon">&#xe654;</i>添加
     </button>&nbsp;
+   
 <button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
     <i class="layui-icon">&#xe640;</i>删除
 </button>&nbsp;
 <div class="dropdown-menu">
     <button class="layui-btn layui-btn-sm layui-btn-warm icon-btn">
         <i class="layui-icon">&#xe615;</i>搜索
+    </button>&nbsp;
+    <button lay-event="export" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
+        <i class="layui-icon">&#xe67c;</i>导出
     </button>
     <div class="dropdown-menu-nav dropdown-bottom-right" style="width: 300px;padding: 15px 15px 0 0;">
         <div class="dropdown-anchor"></div>
@@ -138,6 +142,7 @@
     </div>
 </div>
 </script>
+
 
 <!-- 表单弹窗 -->
 <script type="text/html" id="organizationUserEditDialog2" >
@@ -976,15 +981,18 @@
 
                 { field: 'district', title: '区县', align: 'center', width: 150 },
                 { field: 'township', title: '乡镇', align: 'center', width: 150 },
-                { field: 'host', title: '户主姓名', align: 'center', width: 150 },
+                { field: 'host', title: '户主姓名', align: 'center', width: 150 ,templet:function(res){
+                    return'<b>'+res.host+'</b>'
+                }},
                 { field: 'name', title: '搬迁人员姓名',  align: 'center', width: 150 },
-                { field: 'idCard', title: '搬迁人员身份证号', align: 'center', width: 180 },
+                
                 { title: '操作', toolbar: '#organizationUserTbBar2', align: 'center', width: 180, minWidth: 120 }
         ]],
         //  展开的列配置
+        
         openCols: [
+             { field: 'idCard', title: '搬迁人员身份证号', align: 'center', width: 180 },
                 { field: 'torfHost', title: '是否户主', align: 'center', width: 150 },
-
                 { field: 'hostId', title: '户主身份证账号', align: 'center', width: 180 },
                 { field: 'relationship', title: '与户主关系',align: 'center', width: 150 },
                 { field: 'population', title: '家庭人口', align: 'center', width: 150 },
@@ -1007,6 +1015,7 @@
                 { field: 'averageIncome', title: '人均纯收入', align: 'center', width: 150 },
                 { field: 'phone', title: '联系方式', align: 'center', width: 150 },
                 { field: 'remarks', title: '备注（新增或死亡）', align: 'center', width: 150 },
+              
 
                 { field: 'outsideProvince', title: '务工省外转移', align: 'center', width: 150 },
                 { field: 'withinCounty', title: '务工县外省内转移', align: 'center', width: 150 },
@@ -1017,7 +1026,8 @@
 
                 { field: 'agriculture', title: '农业就业', align: 'center', width: 150 },
                 { field: 'estimatedIncome', title: '预计年收入', align: 'center', width: 150 },
-                { field: 'reason', title: '未就业原因', align: 'center', width: 150},
+                { field: 'reason', title: '未就业原因', align: 'center', width: 150}
+                ,
                 { field: 'employmentTrainingTime', title: '就业培训时间', align: 'center', width: 150 },
                 { field: 'employmentTrainingContent', title: '就业培训内容', align: 'center', width: 150 },
                 { field: 'vocationalTrainingTime', title: '职业培训时间', align: 'center', width: 150 },
@@ -1071,6 +1081,14 @@
                 doDel2 ({ids: ids});
             }
         });
+// 表格头工具栏点击事件
+table .on('toolbar(organizationUserTbToolBar2)',function(obj){
+(obj.event==='export')
+
+
+
+
+})
 
         /* 表格头工具栏点击事件 */
         table.on('toolbar(organizationUserTable2)', function (obj) {
@@ -1150,7 +1168,7 @@
 
     });
 //监听乡镇下拉框
-  
+
   form.on('select(roleId)', function(dataObj){
     //移除城市下拉框所有选项
     $("#account").empty();

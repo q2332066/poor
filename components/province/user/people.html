@@ -66,7 +66,9 @@
     <!-- <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
         <i class="layui-icon">&#xe654;</i>添加
     </button>&nbsp; -->
-  
+    <button lay-event="export" class="layui-btn layui-btn-sm layui-btn-danger icon-btn" id=>
+        <i class="layui-icon">&#xe67c;</i>导出
+    </button>
     <div class="dropdown-menu">
         <button class="layui-btn layui-btn-sm layui-btn-warm icon-btn">
             <i class="layui-icon">&#xe615;</i>搜索
@@ -94,7 +96,10 @@
 
 <!-- js部分 -->
 <script>
-    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable'], function () {
+  
+
+
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable','excel'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
@@ -105,7 +110,7 @@
         var xmSelect = layui.xmSelect;
         var selObj, treeData;  // 左树选中数据
         var setter = layui.setter
-
+        var excel = parent.layui.excel;
           /* 渲染树形 */
         function renderTree() {
             $.ajax
@@ -239,6 +244,66 @@
              }
          });
 
+         table.on('checkbox(organizationUserTable11)',function(obj){
+             var data=obj.data;
+             console.log(data);
+         }) 
+       
+
+         $(".exprotbtn").click(function(){
+
+           var status= table.checkStatus("organizationUserTable11");
+           var data=status.data;
+           alert(data);
+            var gotids=[];
+
+
+            $.ajax({
+                url: '/export',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    // 1. 如果需要调整顺序，请执行梳理函数
+                    var dt = excel.filterExportData(data, [
+                        'c_id',
+                        ,'c_classname'
+                        ,'c_counsellor'
+                    ]);
+
+                    // 2. 数组头部新增表头
+                    dt.unshift({c_id: '搬迁人员姓名', c_classname: '班级名', c_counsellor: '辅导员'});
+
+                    // 意思是：A列40px，B列60px(默认)，C列120px，D、E、F等均未定义
+                    var colConf = excel.makeColConfig({
+                        'C': 90,
+                        'D': 80
+                    }, 60);
+
+                  
+                    // 3. 执行导出函数，系统会弹出弹框
+                    excel.exportExcel({
+                        sheet1: dt
+                    }, '安置点搬迁人员信息.xlsx', 'xlsx', {
+                        extend: {
+                            '!cols': colConf
+                        }
+                    });
+                 
+                  
+                },
+
+                error: function () {
+                    //console.log(data);
+                   alert("error");
+                }
+            });
+
+
+
+
+         })  
        
 
      

@@ -262,7 +262,7 @@
             elem: "layui-table-page" + s.index,
             count: o,
             limit: s.limit,
-            limits: s.limits || [10, 20, 30, 40, 50, 60, 70, 80, 90],
+            limits: s.limits || [10, 20, 30, 40, 50, 60, 70, 80, 500],
             groups: 3,
             layout: ["prev", "page", "next", "skip", "count", "limit"],
             prev: '<i class="layui-icon">&#xe603;</i>',
@@ -401,7 +401,7 @@
                 case"LAYTABLE_EXPORT":
                     r.ie ? l.tips("导出功能不支持 IE，请用 Chrome 等高级浏览器导出", this, {tips: 3}) : s({
                         list: function () {
-                            return ['<li data-type="csv">导出到 Csv 文件</li>', '<li data-type="xls">导出到 Excel 文件</li>'].join("")
+                            return ['<li data-type="csv">导出到 Csv 文件</li>', '<li data-type="xlsx">导出到 Excel 文件</li>'].join("")
                         }(), done: function (e, l) {
                             l.on("click", function () {
                                 var e = t(this).data("type");
