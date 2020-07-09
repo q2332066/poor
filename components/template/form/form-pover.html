@@ -7,9 +7,9 @@
     }
 
     #organizationUserEditForm {
-        
+
         float: left;
-        width:90%;
+        width: 90%;
         padding: 800x 150px;
         background-color: #dbd8d6;
         height: 500px;
@@ -82,774 +82,777 @@
 </script>
 <!-- 表格工具列 -->
 <script type="text/html" id="organizationUserTbToolBar2">
-   <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
+    <button lay-event="add" class="layui-btn layui-btn-sm icon-btn">
         <i class="layui-icon">&#xe654;</i>添加
     </button>&nbsp;
-   
-<button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
-    <i class="layui-icon">&#xe640;</i>删除
-</button>&nbsp;
-<div class="dropdown-menu">
-    <button class="layui-btn layui-btn-sm layui-btn-warm icon-btn">
-        <i class="layui-icon">&#xe615;</i>搜索
+
+    <button lay-event="del" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
+        <i class="layui-icon">&#xe640;</i>删除
     </button>&nbsp;
-    <button lay-event="export" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
-        <i class="layui-icon">&#xe67c;</i>导出
-    </button>
-    <div class="dropdown-menu-nav dropdown-bottom-right" style="width: 300px;padding: 15px 15px 0 0;">
-        <div class="dropdown-anchor"></div>
-        <div class="layui-form" id="organizationUserTbSearchForm">
-            <div class="layui-form-item">
-                <label class="layui-form-label">姓名:</label>
-                <div class="layui-input-block">
-                    <input name="name" class="layui-input" placeholder="请输入" />
+    <div class="dropdown-menu">
+        <button class="layui-btn layui-btn-sm layui-btn-warm icon-btn">
+            <i class="layui-icon">&#xe615;</i>搜索
+        </button>&nbsp;
+        <button lay-event="export" class="layui-btn layui-btn-sm layui-btn-danger icon-btn">
+            <i class="layui-icon">&#xe67c;</i>导出
+        </button>
+        <div class="dropdown-menu-nav dropdown-bottom-right" style="width: 300px;padding: 15px 15px 0 0;">
+            <div class="dropdown-anchor"></div>
+            <div class="layui-form" id="organizationUserTbSearchForm">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名:</label>
+                    <div class="layui-input-block">
+                        <input name="name" class="layui-input" placeholder="请输入"/>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">户主姓名:</label>
-                <div class="layui-input-block">
-                    <input name="host" class="layui-input" placeholder="请输入" />
+                <div class="layui-form-item">
+                    <label class="layui-form-label">户主姓名:</label>
+                    <div class="layui-input-block">
+                        <input name="host" class="layui-input" placeholder="请输入"/>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">安置点:</label>
-                <div class="layui-input-block">
-                    <input name="resettlementPoint" class="layui-input" placeholder="请输入" />
+                <div class="layui-form-item">
+                    <label class="layui-form-label">安置点:</label>
+                    <div class="layui-input-block">
+                        <input name="resettlementPoint" class="layui-input" placeholder="请输入"/>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">安置方式:</label>
-                <div class="layui-input-block">
-                    <select name="arrangement">
-                        <option value="">选择方式</option>
-                        <option value="集中安置">集中安置</option>
-                        <option value="分散安置">分散安置</option>
-                    </select>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">安置方式:</label>
+                    <div class="layui-input-block">
+                        <select name="arrangement">
+                            <option value="">选择方式</option>
+                            <option value="集中安置">集中安置</option>
+                            <option value="分散安置">分散安置</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">身份证号:</label>
-                <div class="layui-input-block">
-                    <input name="idCard" class="layui-input" placeholder="请输入" />
+                <div class="layui-form-item">
+                    <label class="layui-form-label">身份证号:</label>
+                    <div class="layui-input-block">
+                        <input name="idCard" class="layui-input" placeholder="请输入"/>
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item text-right">
-                <button class="layui-btn icon-btn" lay-filter="organizationUserTbSearch" lay-submit>
-                    <i class="layui-icon">&#xe615;</i>搜索
-                </button>
+                <div class="layui-form-item text-right">
+                    <button class="layui-btn icon-btn" lay-filter="organizationUserTbSearch" lay-submit>
+                        <i class="layui-icon">&#xe615;</i>搜索
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </script>
 
 
 <!-- 表单弹窗 -->
-<script type="text/html" id="organizationUserEditDialog2" >
-     <form id="organizationUserEditForm" lay-filter="organizationUserEditForm" class="layui-form model-form">
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
-        <legend></legend>
-      </fieldset>
-       
-      <div class="layui-tab layui-tab-card">
-        <ul class="layui-tab-title">
-          <li class="layui-this">人员基本情况
-          <li>就业创业政策保障</li>
-          <li>产业发展政策保证</li>
-          <li>已享受帮扶政策</li>
-        </ul>
-        <div class="layui-tab-content" style="height: 100px;">
-            <div class="layui-tab-item layui-show">
-   
-        <input name="userId" type="hidden"/>
-        <div class="layui-col-md4 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">区县:</label>
-            <div class="layui-input-inline">
-                <select id="roleId" name="districtId" lay-filter="roleId" lay-verify="required" lay-search="" >
-                    <option value="">请选择区县</option>
-                 </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">乡镇:</label>
-            <div class="layui-input-inline">
-                <select name="townshipId" id="account" lay-filter="account" lay-verify="account" lay-search="" >
-                    <option value="">请选择乡镇</option>
-                 </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">安置点:</label>
-            <div class="layui-input-inline">
-                <select name="rid" id="resettlementPoint" lay-filter="resettlementPoint" lay-verify="required" 
-                lay-search="">
-                                              <option value="">请选择安置点</option>
-                                           </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">搬迁人员姓名:</label>
-            <div class="layui-input-block">
-                <input name="name" placeholder="搬迁人员姓名" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
+<script type="text/html" id="organizationUserEditDialog2">
+    <form id="organizationUserEditForm" lay-filter="organizationUserEditForm" class="layui-form model-form">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
+            <legend></legend>
+        </fieldset>
+
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">人员基本情况
+                <li>就业创业政策保障</li>
+                <li>产业发展政策保证</li>
+                <li>已享受帮扶政策</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item layui-show">
+
+                    <input name="userId" type="hidden"/>
+                    <div class="layui-col-md4 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">区县:</label>
+                            <div class="layui-input-inline">
+                                <select id="roleId" name="districtId" lay-filter="roleId" lay-verify="required"
+                                        lay-search="">
+                                    <option value="">请选择区县</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">乡镇:</label>
+                            <div class="layui-input-inline">
+                                <select name="townshipId" id="account" lay-filter="account" lay-verify="account"
+                                        lay-search="">
+                                    <option value="">请选择乡镇</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">安置点:</label>
+                            <div class="layui-input-inline">
+                                <select name="rid" id="resettlementPoint" lay-filter="resettlementPoint"
+                                        lay-verify="required"
+                                        lay-search="">
+                                    <option value="">请选择安置点</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">搬迁人员姓名:</label>
+                            <div class="layui-input-block">
+                                <input name="name" placeholder="搬迁人员姓名" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">搬迁人员身份证号:</label>
+                            <div class="layui-input-block">
+                                <input name="idCard" placeholder="请输入身份证号" class="layui-input"
+                                       lay-verType="tips" lay-verify="required|identity" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">与户主关系:</label>
+                            <div class="layui-input-block">
+                                <select name="relationship" lay-verType="tips" lay-verify="required">
+                                    <option value="">请选择角色</option>
+                                    <option value="户主">户主</option>
+                                    <option value="配偶">配偶</option>
+                                    <option value="之子">之子</option>
+                                    <option value="之女">之女</option>
+                                    <option value="之儿媳">之儿媳</option>
+                                    <option value="之女婿">之女婿</option>
+                                    <option value="之孙子">之孙子</option>
+                                    <option value="之孙女">之孙女</option>
+                                    <option value="之外孙子">之外孙子</option>
+                                    <option value="之外孙女">之外孙女</option>
+                                    <option value="之父">之父</option>
+                                    <option value="之母">之母</option>
+                                    <option value="之岳父">之岳父</option>
+                                    <option value="之岳母">之岳母</option>
+                                    <option value="之公公">之公公</option>
+                                    <option value="之婆婆">之婆婆</option>
+                                    <option value="之祖父">之祖父</option>
+                                    <option value="之祖母">之祖母</option>
+                                    <option value="之外祖父">之外祖父</option>
+                                    <option value="之外祖母">之外祖母</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">是否户主:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="torfHost" value="是" title="是" checked/>
+                                <input type="radio" name="torfHost" value="否" title="否"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">户主身份证账号:</label>
+                            <div class="layui-input-block">
+                                <input name="hostId" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required|identity" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">家庭人口:</label>
+                            <div class="layui-input-block">
+                                <input name="population" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">是否劳动力:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="torfLabor" value="是" title="是" checked/>
+                                <input type="radio" name="torfLabor" value="否" title="否"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">劳动力人口:</label>
+                            <div class="layui-input-block">
+                                <input name="laborNumber" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">迁出地:</label>
+                            <div class="layui-input-block">
+                                <input name="movedOut" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">迁入地:</label>
+                            <div class="layui-input-block">
+                                <input name="moveIn" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">安置方式:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="arrangement" value="集中安置" title="集中安置" checked/>
+                                <input type="radio" name="arrangement" value="分散安置" title="分散安置"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">安置点名称:</label>
+                            <div class="layui-input-block">
+                                <input name="resettlementPoint" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">是否脱贫:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="torfPoor" value="是" title="是" checked/>
+                                <input type="radio" name="torfPoor" value="否" title="否"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label ">脱贫时间</label>:</label>
+                            <div class="layui-input-block">
+                                <input name="poorTime" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label ">房屋面积:</label>
+                            <div class="layui-input-block">
+                                <input name="houseArea" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label ">是否实际入住:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="torfLive" value="是" title="是" checked/>
+                                <input type="radio" name="torfLive" value="否" title="否"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label ">目前具体地址:</label>
+                            <div class="layui-input-block">
+                                <input name="specificAddr" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label ">是否拆旧复垦:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="torfDismantle" value="是" title="是" checked/>
+                                <input type="radio" name="torfDismantle" value="否" title="否"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">文化程度:</label>
+                            <div class="layui-input-block">
+                                <select name="education" lay-verType="tips" lay-verify="required">
+                                    <option value="">请选择</option>
+                                    <option value="小学">小学</option>
+                                    <option value="初中">初中</option>
+                                    <option value="高中">高中</option>
+                                    <option value="大专">大专</option>
+                                    <option value="本科及以上">本科及以上</option>
+                                    <option value="文盲或半文盲">文盲或半文盲</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">健康状况:</label>
+                            <div class="layui-input-block">
+                                <select name="stateOfHealths" lay-verType="tips" lay-verify="required">
+                                    <option value="">请选择</option>
+                                    <option value="健康">健康</option>
+                                    <option value="残疾">残疾</option>
+                                    <option value="长期慢性病">长期慢性病</option>
+                                    <option value="患有大病">患有大病</option>
+                                    <option value="残疾、长期慢性病">残疾、长期慢性病</option>
+                                    <option value="残疾、患有大病">残疾、患有大病</option>
+
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">劳动技能:</label>
+                            <div class="layui-input-block">
+                                <select name="laborSkills" lay-verType="tips" lay-verify="required">
+                                    <option value="">请选择</option>
+                                    <option value="技能劳动力">技能劳动力</option>
+                                    <option value="普通劳动力">普通劳动力</option>
+                                    <option value="弱劳动力或半劳动力">弱劳动力或半劳动力</option>
+                                    <option value="丧失劳动力">丧失劳动力</option>
+                                    <option value="无劳动力">无劳动力</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">致贫原因:</label>
+                            <div class="layui-input-block">
+                                <select name="causePoverty" lay-verType="tips" lay-verify="required">
+                                    <option value="">请选择</option>
+                                    <option value="交通条件落后">交通条件落后</option>
+                                    <option value="缺技术">缺技术</option>
+                                    <option value="缺劳动力">缺劳动力</option>
+                                    <option value="缺土地">缺土地</option>
+                                    <option value="缺资金">缺资金</option>
+                                    <option value="因病">因病</option>
+                                    <option value="因残">因残</option>
+                                    <option value="因学">因学</option>
+                                    <option value="因灾">因灾</option>
+                                    <option value="自身发展动力不足">自身发展动力不足</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">人均纯收入:</label>
+                            <div class="layui-input-block">
+                                <input name="averageIncome" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">联系方式:</label>
+                            <div class="layui-input-block">
+                                <input name="phone" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips" lay-verify="required|phone" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md12 layui-col-lg12">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">备注（新增或死亡）:</label>
+                            <div class="layui-input-block">
+                                <input name="remarks" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="layui-col-md6 layui-col-lg6">
-        
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">搬迁人员身份证号:</label>
-            <div class="layui-input-block">
-                <input name="idCard" placeholder="请输入身份证号" class="layui-input"
-                       lay-verType="tips" lay-verify="required|identity" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">与户主关系:</label>
-            <div class="layui-input-block">
-                <select name="relationship" lay-verType="tips" lay-verify="required">
-                    <option value="">请选择角色</option>
-                    <option value="户主">户主</option>
-                                        <option value="配偶">配偶</option>
-                                        <option value="之子">之子</option>
-                                        <option value="之女">之女</option>
-                                        <option value="之儿媳">之儿媳</option>
-                                        <option value="之女婿">之女婿</option>
-                                        <option value="之孙子">之孙子</option>
-                                        <option value="之孙女">之孙女</option>
-                                        <option value="之外孙子">之外孙子</option>
-                                        <option value="之外孙女">之外孙女</option>
-                                        <option value="之父">之父</option>
-                                        <option value="之母">之母</option>
-                                        <option value="之岳父">之岳父</option>
-                                        <option value="之岳母">之岳母</option>
-                                        <option value="之公公">之公公</option>
-                                        <option value="之婆婆">之婆婆</option>
-                                        <option value="之祖父">之祖父</option>
-                                        <option value="之祖母">之祖母</option>
-                                        <option value="之外祖父">之外祖父</option>
-                                        <option value="之外祖母">之外祖母</option>
-                                        <option value="其他">其他</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">是否户主:</label>
-            <div class="layui-input-block">
-                <input type="radio" name="torfHost" value="是" title="是" checked/>
-                <input type="radio" name="torfHost" value="否" title="否"/>
-            </div>
-        </div>
-    </div>
-   
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">户主身份证账号:</label>
-            <div class="layui-input-block">
-                <input name="hostId" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required|identity" required/>
+                <div class="layui-tab-item">
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">务工省外转移:</label>
+                            <div class="layui-input-block">
+                                <input name="outsideProvince" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
                     </div>
-               </div>
-            </div>
- 
-            <div class="layui-col-md6 layui-col-lg6">
-<div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">家庭人口:</label>
-            <div class="layui-input-block">
-                <input name="population" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">是否劳动力:</label>
-            <div class="layui-input-block">
-                <input type="radio" name="torfLabor" value="是" title="是" checked/>
-                <input type="radio" name="torfLabor" value="否" title="否"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">劳动力人口:</label>
-            <div class="layui-input-block">
-                <input name="laborNumber" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">迁出地:</label>
-            <div class="layui-input-block">
-                <input name="movedOut" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">迁入地:</label>
-            <div class="layui-input-block">
-                <input name="moveIn" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">安置方式:</label>
-            <div class="layui-input-block">
-                <input type="radio" name="arrangement" value="集中安置" title="集中安置" checked/>
-                <input type="radio" name="arrangement" value="分散安置" title="分散安置"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">安置点名称:</label>
-            <div class="layui-input-block">
-                <input name="resettlementPoint" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">是否脱贫:</label>
-            <div class="layui-input-block">
-            <input type="radio" name="torfPoor" value="是" title="是" checked/>
-            <input type="radio" name="torfPoor" value="否" title="否"/>
-        </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label ">脱贫时间</label>:</label>
-            <div class="layui-input-block">
-                <input name="poorTime" placeholder="请输入" class="layui-input"
-                       lay-verType="tips"/>
-            </div>
-        </div>
-    </div>
-    
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label ">房屋面积:</label>
-            <div class="layui-input-block">
-                <input name="houseArea" placeholder="请输入" class="layui-input"
-                       lay-verType="tips"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label ">是否实际入住:</label>
-            <div class="layui-input-block">
-                <input type="radio" name="torfLive" value="是" title="是" checked/>
-                <input type="radio" name="torfLive" value="否" title="否"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label ">目前具体地址:</label>
-            <div class="layui-input-block">
-                <input name="specificAddr" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label ">是否拆旧复垦:</label>
-            <div class="layui-input-block">
-                <input type="radio" name="torfDismantle" value="是" title="是" checked/>
-                <input type="radio" name="torfDismantle" value="否" title="否"/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">文化程度:</label>
-            <div class="layui-input-block">
-                <select name="education" lay-verType="tips" lay-verify="required">
-                    <option value="">请选择</option>
-                    <option value="小学">小学</option>
-                    <option value="初中">初中</option>
-                    <option value="高中">高中</option>
-                    <option value="大专">大专</option>
-                    <option value="本科及以上">本科及以上</option>
-                    <option value="文盲或半文盲">文盲或半文盲</option>
-                    
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">健康状况:</label>
-            <div class="layui-input-block">
-                <select name="stateOfHealths" lay-verType="tips" lay-verify="required">
-                    <option value="">请选择</option>
-                    <option value="健康">健康</option>
-                    <option value="残疾">残疾</option>
-                    <option value="长期慢性病">长期慢性病</option>
-                    <option value="患有大病">患有大病</option>
-                    <option value="残疾、长期慢性病">残疾、长期慢性病</option>
-                    <option value="残疾、患有大病">残疾、患有大病</option>
-                    
-                    
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">劳动技能:</label>
-            <div class="layui-input-block">
-                <select name="laborSkills" lay-verType="tips" lay-verify="required">
-                    <option value="">请选择</option>
-                    <option value="技能劳动力">技能劳动力</option>
-                    <option value="普通劳动力">普通劳动力</option>
-                    <option value="弱劳动力或半劳动力">弱劳动力或半劳动力</option>
-                    <option value="丧失劳动力">丧失劳动力</option>
-                    <option value="无劳动力">无劳动力</option>
-                    
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">致贫原因:</label>
-            <div class="layui-input-block">
-                <select name="causePoverty" lay-verType="tips" lay-verify="required">
-                    <option value="">请选择</option>
-                                        <option value="交通条件落后">交通条件落后</option>
-                                        <option value="缺技术">缺技术</option>
-                                        <option value="缺劳动力">缺劳动力</option>
-                                        <option value="缺土地">缺土地</option>
-                                        <option value="缺资金">缺资金</option>
-                                        <option value="因病">因病</option>
-                                        <option value="因残">因残</option>
-                                        <option value="因学">因学</option>
-                                        <option value="因灾">因灾</option>
-                                        <option value="自身发展动力不足">自身发展动力不足</option>
-                    
-                </select>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">人均纯收入:</label>
-            <div class="layui-input-block">
-                <input name="averageIncome" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">联系方式:</label>
-            <div class="layui-input-block">
-                <input name="phone" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" lay-verify="required|phone" required/>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md12 layui-col-lg12">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">备注（新增或死亡）:</label>
-            <div class="layui-input-block">
-                <input name="remarks" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layui-tab-item">
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">务工省外转移:</label>
-            <div class="layui-input-block">
-                <input name="outsideProvince" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">务工县外省内转移:</label>
-            <div class="layui-input-block">
-                <input name="withinCounty" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">务工县内转移:</label>
-            <div class="layui-input-block">
-                <input name="outsideCounty" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">社区工厂吸纳及就业扶贫基地带动:</label>
-            <div class="layui-input-block">
-                <input name="communityDriven" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">公益岗位:</label>
-            <div class="layui-input-block">
-                <input name="publicWelfare', title" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">自主创业:</label>
-            <div class="layui-input-block">
-                <input name="entrepreneurship" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">农业就业:</label>
-            <div class="layui-input-block">
-                <input name="agriculture" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">预计年收入:</label>
-            <div class="layui-input-block">
-                <input name="estimatedIncome" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">未就业原因:</label>
-            <div class="layui-input-block">
-                <input name="reason" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">就业培训时间:</label>
-            <div class="layui-input-block">
-                <input name="employmentTrainingTime" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">就业培训内容:</label>
-            <div class="layui-input-block">
-                <input name="employmentTrainingContent" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">职业培训时间:</label>
-            <div class="layui-input-block">
-                <input name="vocationalTrainingTime" placeholder="请输入" class="layui-input"
-                       lay-verType="tips">
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">职业培训内容:</label>
-            <div class="layui-input-block">
-                <input name="vocationalTrainingContent" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">创业培训时间:</label>
-            <div class="layui-input-block">
-                <input name="entrepreneurshipTrainingTime" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">创业培训内容:</label>
-            <div class="layui-input-block">
-                <input name="entrepreneurshipTrainingContent" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layui-tab-item">
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">自主创业:</label>
-            <div class="layui-input-block">
-                <input name="entrepreneurship" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">自主发展产业类别及规模:</label>
-            <div class="layui-input-block">
-                <input name="development" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">自主发展预计年增收:</label>
-            <div class="layui-input-block">
-                <input name="yearIncrease" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">经营主体带贫名称:</label>
-            <div class="layui-input-block">
-                <input name="businessEntity" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">经营主体带贫带动方式:</label>
-            <div class="layui-input-block">
-                <input name="drivingMethod" placeholder="请输入" class="layui-input"
-                       lay-verType="tips">
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">经营主体带贫带动增收:</label>
-            <div class="layui-input-block">
-                <input name="driveIncome" placeholder="请输入" class="layui-input"
-                       lay-verType="tips">
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">产业发展奖补:</label>
-            <div class="layui-input-block">
-                <input name="ndustryAwards" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">产业发展政策性补助:</label>
-            <div class="layui-input-block">
-                <input name="policySubsidies" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">农业实用技术培训时间:</label>
-            <div class="layui-input-block">
-                <input name="agriculturalTraining" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">农业实用技术培训内容:</label>
-            <div class="layui-input-block">
-                <input name="agriculturalContent" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    </div>
-    <div class="layui-tab-item">
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">易地搬迁补助:</label>
-            <div class="layui-input-block">
-                <input name="relocationAllowance" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">教育扶贫保障就读学校:</label>
-            <div class="layui-input-block">
-                <input name="educationGuaranteeSchool" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">教育扶贫保障补助类型:</label>
-            <div class="layui-input-block">
-                <input name="typeSubsidy" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">教育扶贫保障补助金额:</label>
-            <div class="layui-input-block">
-                <input name="educationGrantAmount" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">健康扶贫保障新农合减免:</label>
-            <div class="layui-input-block">
-                <input name="ncmsReduction" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">健康扶贫保障合疗报销:</label>
-            <div class="layui-input-block">
-                <input name="reimbursementCombinedTherapy" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">生态扶贫保障公益林补偿:</label>
-            <div class="layui-input-block">
-                <input name="linCompensation" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">生态扶贫保障生态护林员:</label>
-            <div class="layui-input-block">
-                <input name="rangerCompensation" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">金融扶贫保障小额信贷及互助资金协会借款金额:</label>
-            <div class="layui-input-block">
-                <input name="loanAmount" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">金融扶贫保障发展产业类型及规模:</label>
-            <div class="layui-input-block">
-                <input name="industryTypeScale" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">社会保障养老保险年收入:</label>
-            <div class="layui-input-block">
-                <input name="pensionIncome" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">社会保障高龄补贴年收入:</label>
-            <div class="layui-input-block">
-                <input name="oldAgeAllowance" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">社会保障残疾补助年收入:</label>
-            <div class="layui-input-block">
-                <input name="disabilityAllowance" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">社会保障兜底保障类型:</label>
-            <div class="layui-input-block">
-                <input name="pocketType" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md6 layui-col-lg6">>
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-text">社会保障兜底保障年收入:</label>
-            <div class="layui-input-block">
-                <input name="pocketAmount" placeholder="请输入" class="layui-input"
-                       lay-verType="tips" >
-            </div>
-        </div>
-        <div class="layui-form-item text-right">
-            <button class="layui-btn" lay-filter="organizationUserEditSubmit2" lay-submit>保存</button>
-            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
-        </div>
-    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">务工县外省内转移:</label>
+                            <div class="layui-input-block">
+                                <input name="withinCounty" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">务工县内转移:</label>
+                            <div class="layui-input-block">
+                                <input name="outsideCounty" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">社区工厂吸纳及就业扶贫基地带动:</label>
+                            <div class="layui-input-block">
+                                <input name="communityDriven" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">公益岗位:</label>
+                            <div class="layui-input-block">
+                                <input name="publicWelfare', title" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">自主创业:</label>
+                            <div class="layui-input-block">
+                                <input name="entrepreneurship" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">农业就业:</label>
+                            <div class="layui-input-block">
+                                <input name="agriculture" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">预计年收入:</label>
+                            <div class="layui-input-block">
+                                <input name="estimatedIncome" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">未就业原因:</label>
+                            <div class="layui-input-block">
+                                <input name="reason" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">就业培训时间:</label>
+                            <div class="layui-input-block">
+                                <input name="employmentTrainingTime" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">就业培训内容:</label>
+                            <div class="layui-input-block">
+                                <input name="employmentTrainingContent" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">职业培训时间:</label>
+                            <div class="layui-input-block">
+                                <input name="vocationalTrainingTime" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">职业培训内容:</label>
+                            <div class="layui-input-block">
+                                <input name="vocationalTrainingContent" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">创业培训时间:</label>
+                            <div class="layui-input-block">
+                                <input name="entrepreneurshipTrainingTime" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">创业培训内容:</label>
+                            <div class="layui-input-block">
+                                <input name="entrepreneurshipTrainingContent" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">自主创业:</label>
+                            <div class="layui-input-block">
+                                <input name="entrepreneurship" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">自主发展产业类别及规模:</label>
+                            <div class="layui-input-block">
+                                <input name="development" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">自主发展预计年增收:</label>
+                            <div class="layui-input-block">
+                                <input name="yearIncrease" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">经营主体带贫名称:</label>
+                            <div class="layui-input-block">
+                                <input name="businessEntity" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">经营主体带贫带动方式:</label>
+                            <div class="layui-input-block">
+                                <input name="drivingMethod" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">经营主体带贫带动增收:</label>
+                            <div class="layui-input-block">
+                                <input name="driveIncome" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">产业发展奖补:</label>
+                            <div class="layui-input-block">
+                                <input name="ndustryAwards" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">产业发展政策性补助:</label>
+                            <div class="layui-input-block">
+                                <input name="policySubsidies" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">农业实用技术培训时间:</label>
+                            <div class="layui-input-block">
+                                <input name="agriculturalTraining" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">农业实用技术培训内容:</label>
+                            <div class="layui-input-block">
+                                <input name="agriculturalContent" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">易地搬迁补助:</label>
+                            <div class="layui-input-block">
+                                <input name="relocationAllowance" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">教育扶贫保障就读学校:</label>
+                            <div class="layui-input-block">
+                                <input name="educationGuaranteeSchool" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">教育扶贫保障补助类型:</label>
+                            <div class="layui-input-block">
+                                <input name="typeSubsidy" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">教育扶贫保障补助金额:</label>
+                            <div class="layui-input-block">
+                                <input name="educationGrantAmount" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">健康扶贫保障新农合减免:</label>
+                            <div class="layui-input-block">
+                                <input name="ncmsReduction" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">健康扶贫保障合疗报销:</label>
+                            <div class="layui-input-block">
+                                <input name="reimbursementCombinedTherapy" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">生态扶贫保障公益林补偿:</label>
+                            <div class="layui-input-block">
+                                <input name="linCompensation" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">生态扶贫保障生态护林员:</label>
+                            <div class="layui-input-block">
+                                <input name="rangerCompensation" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">金融扶贫保障小额信贷及互助资金协会借款金额:</label>
+                            <div class="layui-input-block">
+                                <input name="loanAmount" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">金融扶贫保障发展产业类型及规模:</label>
+                            <div class="layui-input-block">
+                                <input name="industryTypeScale" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">社会保障养老保险年收入:</label>
+                            <div class="layui-input-block">
+                                <input name="pensionIncome" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">社会保障高龄补贴年收入:</label>
+                            <div class="layui-input-block">
+                                <input name="oldAgeAllowance" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">社会保障残疾补助年收入:</label>
+                            <div class="layui-input-block">
+                                <input name="disabilityAllowance" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">社会保障兜底保障类型:</label>
+                            <div class="layui-input-block">
+                                <input name="pocketType" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-text">社会保障兜底保障年收入:</label>
+                            <div class="layui-input-block">
+                                <input name="pocketAmount" placeholder="请输入" class="layui-input"
+                                       lay-verType="tips">
+                            </div>
+                        </div>
+                        <div class="layui-form-item text-right">
+                            <button class="layui-btn" lay-filter="organizationUserEditSubmit2" lay-submit>保存</button>
+                            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+                        </div>
+                    </div>
     </form>
 </script>
 
@@ -877,93 +880,92 @@
         /* 渲染树形 */
         function renderTree() {
             $.ajax({
-            url:setter.baseServer + 'region/est/city/list', 
-            type: 'post',
-            headers: {"token":layui.data(layui.setter.tableName)['token']},
-            success:function (res) {
-                console.log(res);
-                if(res&&res.data){
-                    res.data.forEach(function(item){
-                        item.title = item.cityName;
-                        item.id = item.patentId;
-                        item.cityId = item.patentId;
-                        item.disId = null;
-                        item.towId = null;
-                        item.resettlementPointId = null;
-                        item.spread = false;
-                        // 第二级
-                        if(item.children&&item.children.length){
-                            item.children.forEach(function(itemTwo){
-                                itemTwo.title = itemTwo.cityName;
-                                itemTwo.cityId = itemTwo.patentId;
-                                itemTwo.disId = itemTwo.cId;
-                                itemTwo.towId = null;
-                                itemTwo.resettlementPointId=null;
-                                itemTwo.id = itemTwo.cId;
-                                itemTwo.spread = false;
-                                // 第三级
-                                if(itemTwo.children&&itemTwo.children.length){
-                                    itemTwo.children.forEach(function(itemThree){
-                                        itemThree.title = itemThree.cityName;
-                                        itemThree.cityId = itemTwo.patentId;
-                                        itemThree.disId = itemTwo.cId;
-                                        itemThree.towId = itemThree.cId;
-                                        itemThree.resettlementPointId = null;
-                                        itemThree.id = itemThree.cId;
-                                        itemThree.spread = false;
-                                        // 第四级
-                                        if(itemThree.children&&itemThree.children.length){
-                                            itemThree.children.forEach(function(itemFour){
-                                                itemFour.title = itemFour.resettlementPoint;
-                                                itemFour.id = itemFour.rId;
-                                                itemFour.cityId = itemTwo.patentId;
-                                                itemFour.disId = itemTwo.cId;
-                                                itemFour.towId = itemThree.id;
-                                                itemFour.resettlementPointId =  itemFour.rid;
-                                                itemFour.spread = false;
-                                            })
-                                        }
-                                    })
-                                }
-                            })
-                            
-                            
-                            
+                url: setter.baseServer + 'region/est/city/list',
+                type: 'post',
+                headers: {"token": layui.data(layui.setter.tableName)['token']},
+                success: function (res) {
+                    console.log(res);
+                    if (res && res.data) {
+                        res.data.forEach(function (item) {
+                            item.title = item.cityName;
+                            item.id = item.patentId;
+                            item.cityId = item.patentId;
+                            item.disId = null;
+                            item.towId = null;
+                            item.resettlementPointId = null;
+                            item.spread = false;
+                            // 第二级
+                            if (item.children && item.children.length) {
+                                item.children.forEach(function (itemTwo) {
+                                    itemTwo.title = itemTwo.cityName;
+                                    itemTwo.cityId = itemTwo.patentId;
+                                    itemTwo.disId = itemTwo.cId;
+                                    itemTwo.towId = null;
+                                    itemTwo.resettlementPointId = null;
+                                    itemTwo.id = itemTwo.cId;
+                                    itemTwo.spread = false;
+                                    // 第三级
+                                    if (itemTwo.children && itemTwo.children.length) {
+                                        itemTwo.children.forEach(function (itemThree) {
+                                            itemThree.title = itemThree.cityName;
+                                            itemThree.cityId = itemTwo.patentId;
+                                            itemThree.disId = itemTwo.cId;
+                                            itemThree.towId = itemThree.cId;
+                                            itemThree.resettlementPointId = null;
+                                            itemThree.id = itemThree.cId;
+                                            itemThree.spread = false;
+                                            // 第四级
+                                            if (itemThree.children && itemThree.children.length) {
+                                                itemThree.children.forEach(function (itemFour) {
+                                                    itemFour.title = itemFour.resettlementPoint;
+                                                    itemFour.id = itemFour.rId;
+                                                    itemFour.cityId = itemTwo.patentId;
+                                                    itemFour.disId = itemTwo.cId;
+                                                    itemFour.towId = itemThree.id;
+                                                    itemFour.resettlementPointId = itemFour.rid;
+                                                    itemFour.spread = false;
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+
+
+                            }
+                        })
+                    }
+                    //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
+
+                    treeData = res.data ? res.data : []
+                    tree.render({
+                        elem: '#organizationTree2',
+                        onlyIconControl: true,
+                        data: treeData,
+                        click: function (obj) {
+                            selObj = obj;
+                            var thisObj = obj.data
+                            $('#organizationTree2').find('.ew-tree-click').removeClass('ew-tree-click');
+                            $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
+                            var setObj = new Object();
+                            setObj = {
+                                "cityId": thisObj.cityId,
+                                "disId": thisObj.disId,
+                                "resettlementPointId": thisObj.resettlementPointId,
+                                "towId": thisObj.towId
+                            }
+                            insTb.reload({
+                                method: 'post',
+                                where: setObj,
+                                contentType: 'application/json',
+                                url: setter.baseServer + 'api/est/person/select/tree',
+                                headers: {"token": layui.data(layui.setter.tableName)['token']},
+                            });
 
                         }
-                    })
+                    });
+                    $('#organizationTree2').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
                 }
-               //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
-                
-                treeData = res.data?res.data:[]
-                tree.render({
-                    elem: '#organizationTree2',
-                    onlyIconControl: true,
-                    data: treeData,
-                    click: function (obj) {
-                        selObj =  obj;
-                        var thisObj = obj.data
-                        $('#organizationTree2').find('.ew-tree-click').removeClass('ew-tree-click');
-                        $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
-                        var setObj = new Object();
-                        setObj = {
-                            "cityId": thisObj.cityId,
-                            "disId": thisObj.disId,
-                            "resettlementPointId": thisObj.resettlementPointId,
-                            "towId": thisObj.towId
-                        }
-                        insTb.reload({
-                            method:'post',
-                            where: setObj,
-                            contentType: 'application/json',
-                            url: setter.baseServer + 'api/est/person/select/tree',
-                            headers: {"token":layui.data(layui.setter.tableName)['token']},
-                        });
-                       
-                    }
-                });
-                $('#organizationTree2').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
-            }});
+            });
         }
 
         renderTree();
@@ -976,119 +978,113 @@
             toolbar: '#organizationUserTbToolBar2',
             cellMinWidth: 100,
             cols: [[
-                { type: 'checkbox' },
-                { type: 'numbers' },
+                {type: 'checkbox'},
+                {type: 'numbers'},
 
-                { field: 'district', title: '区县', align: 'center', width: 150 },
-                { field: 'township', title: '乡镇', align: 'center', width: 150 },
-                { field: 'host', title: '户主姓名', align: 'center', width: 150 ,templet:function(res){
-                    return'<b>'+res.host+'</b>'
-                }},
-                { field: 'name', title: '搬迁人员姓名',  align: 'center', width: 150 },
-                
-                { title: '操作', toolbar: '#organizationUserTbBar2', align: 'center', width: 180, minWidth: 120 }
-        ]],
-        //  展开的列配置
-        
-        openCols: [
-             { field: 'idCard', title: '搬迁人员身份证号', align: 'center', width: 180 },
-                { field: 'torfHost', title: '是否户主', align: 'center', width: 150 },
-                { field: 'hostId', title: '户主身份证账号', align: 'center', width: 180 },
-                { field: 'relationship', title: '与户主关系',align: 'center', width: 150 },
-                { field: 'population', title: '家庭人口', align: 'center', width: 150 },
-                { field: 'torfLabor', title: '是否劳动力', align: 'center', width: 150 },
-                { field: 'laborNumber', title: '劳动力人口', align: 'center', width: 150 },
-                { field: 'movedOut', title: '迁出地', align: 'center', width: 200 },
-                { field: 'moveIn', title: '迁入地', align: 'center', width: 200 },
-                { field: 'arrangement', title: '安置方式', align: 'center', width: 150 },
-                { field: 'resettlementPoint', title: '安置点名称', align: 'center', width: 200 },
-                { field: 'torfLabor', title: '是否脱贫', align: 'center', width: 150 },
-                {field: 'poorTime', title: '脱贫时间',  align: 'center', width: 150},
-                { field: 'houseArea', title: '房屋面积', align: 'center', width: 150 },
-                { field: 'torfLive', title: '是否实际入住', align: 'center', width: 150 },
-                { field: 'specificAddr', title: '目前具体地址', align: 'center', width: 200 },
-                { field: 'torfDismantle', title: '是否拆旧复垦', align: 'center', width: 150 },
-                { field: 'education', title: '文化程度', align: 'center', width: 150 },
-                { field: 'stateOfHealths', title: '健康状况', align: 'center', width: 150 },
-                { field: 'laborSkills', title: '劳动技能', align: 'center', width: 150 },
-                { field: 'causePoverty', title: '致贫原因', align: 'center', width: 150 },
-                { field: 'averageIncome', title: '人均纯收入', align: 'center', width: 150 },
-                { field: 'phone', title: '联系方式', align: 'center', width: 150 },
-                { field: 'remarks', title: '备注（新增或死亡）', align: 'center', width: 150 },
-              
+                {field: 'district', title: '区县', align: 'center', width: 150},
+                {field: 'township', title: '乡镇', align: 'center', width: 150},
+                {
+                    field: 'host', title: '户主姓名', align: 'center', width: 150, templet: function (res) {
+                        return '<b>' + res.host + '</b>'
+                    }
+                },
+                {field: 'name', title: '搬迁人员姓名', align: 'center', width: 150},
 
-                { field: 'outsideProvince', title: '务工省外转移', align: 'center', width: 150 },
-                { field: 'withinCounty', title: '务工县外省内转移', align: 'center', width: 150 },
-                { field: 'outsideCounty', title: '务工县内转移', align: 'center', width: 150 },
-                { field: 'communityDriven', title: '社区工厂吸纳及就业扶贫基地带动', align: 'center', width: 150 },
-                { field: 'publicWelfare', title: '公益岗位', align: 'center', width: 150 },
-                { field: 'entrepreneurship', title: '自主创业', align: 'center', width: 150 },
+                {title: '操作', toolbar: '#organizationUserTbBar2', align: 'center', width: 180, minWidth: 120}
+            ]],
+            //  展开的列配置
 
-                { field: 'agriculture', title: '农业就业', align: 'center', width: 150 },
-                { field: 'estimatedIncome', title: '预计年收入', align: 'center', width: 150 },
-                { field: 'reason', title: '未就业原因', align: 'center', width: 150}
+            openCols: [
+                {field: 'idCard', title: '搬迁人员身份证号', align: 'center', width: 180},
+                {field: 'torfHost', title: '是否户主', align: 'center', width: 150},
+                {field: 'hostId', title: '户主身份证账号', align: 'center', width: 180},
+                {field: 'relationship', title: '与户主关系', align: 'center', width: 150},
+                {field: 'population', title: '家庭人口', align: 'center', width: 150},
+                {field: 'torfLabor', title: '是否劳动力', align: 'center', width: 150},
+                {field: 'laborNumber', title: '劳动力人口', align: 'center', width: 150},
+                {field: 'movedOut', title: '迁出地', align: 'center', width: 200},
+                {field: 'moveIn', title: '迁入地', align: 'center', width: 200},
+                {field: 'arrangement', title: '安置方式', align: 'center', width: 150},
+                {field: 'resettlementPoint', title: '安置点名称', align: 'center', width: 200},
+                {field: 'torfLabor', title: '是否脱贫', align: 'center', width: 150},
+                {field: 'poorTime', title: '脱贫时间', align: 'center', width: 150},
+                {field: 'houseArea', title: '房屋面积', align: 'center', width: 150},
+                {field: 'torfLive', title: '是否实际入住', align: 'center', width: 150},
+                {field: 'specificAddr', title: '目前具体地址', align: 'center', width: 200},
+                {field: 'torfDismantle', title: '是否拆旧复垦', align: 'center', width: 150},
+                {field: 'education', title: '文化程度', align: 'center', width: 150},
+                {field: 'stateOfHealths', title: '健康状况', align: 'center', width: 150},
+                {field: 'laborSkills', title: '劳动技能', align: 'center', width: 150},
+                {field: 'causePoverty', title: '致贫原因', align: 'center', width: 150},
+                {field: 'averageIncome', title: '人均纯收入', align: 'center', width: 150},
+                {field: 'phone', title: '联系方式', align: 'center', width: 150},
+                {field: 'remarks', title: '备注（新增或死亡）', align: 'center', width: 150},
+
+
+                {field: 'outsideProvince', title: '务工省外转移', align: 'center', width: 150},
+                {field: 'withinCounty', title: '务工县外省内转移', align: 'center', width: 150},
+                {field: 'outsideCounty', title: '务工县内转移', align: 'center', width: 150},
+                {field: 'communityDriven', title: '社区工厂吸纳及就业扶贫基地带动', align: 'center', width: 150},
+                {field: 'publicWelfare', title: '公益岗位', align: 'center', width: 150},
+                {field: 'entrepreneurship', title: '自主创业', align: 'center', width: 150},
+
+                {field: 'agriculture', title: '农业就业', align: 'center', width: 150},
+                {field: 'estimatedIncome', title: '预计年收入', align: 'center', width: 150},
+                {field: 'reason', title: '未就业原因', align: 'center', width: 150}
                 ,
-                { field: 'employmentTrainingTime', title: '就业培训时间', align: 'center', width: 150 },
-                { field: 'employmentTrainingContent', title: '就业培训内容', align: 'center', width: 150 },
-                { field: 'vocationalTrainingTime', title: '职业培训时间', align: 'center', width: 150 },
-                { field: 'vocationalTrainingContent', title: '职业培训内容', align: 'center', width: 150 },
-                { field: 'entrepreneurshipTrainingTime', title: '创业培训时间', align: 'center', width: 150 },
-                { field: 'entrepreneurshipTrainingContent', title: '创业培训内容', align: 'center', width: 150 },
+                {field: 'employmentTrainingTime', title: '就业培训时间', align: 'center', width: 150},
+                {field: 'employmentTrainingContent', title: '就业培训内容', align: 'center', width: 150},
+                {field: 'vocationalTrainingTime', title: '职业培训时间', align: 'center', width: 150},
+                {field: 'vocationalTrainingContent', title: '职业培训内容', align: 'center', width: 150},
+                {field: 'entrepreneurshipTrainingTime', title: '创业培训时间', align: 'center', width: 150},
+                {field: 'entrepreneurshipTrainingContent', title: '创业培训内容', align: 'center', width: 150},
 
-                { field: 'development', title: '自主发展产业类别及规模', align: 'center', width: 150 },
-                { field: 'yearIncrease', title: '自主发展预计年增收', align: 'center', width: 150 },
-                { field: 'businessEntity', title: '经营主体带贫名称', align: 'center', width: 150 },
-                { field: 'drivingMethod', title: '经营主体带贫带动方式', align: 'center', width: 150 },
-                { field: 'driveIncome', title: '经营主体带贫带动增收', align: 'center', width: 150},
-                { field: 'ndustryAwards', title: '产业发展奖补', align: 'center', width: 150 },
-                { field: 'policySubsidies', title: '产业发展政策性补助', align: 'center', width: 150 },
-                { field: 'agriculturalTraining', title: '农业实用技术培训时间', align: 'center', width: 150 },
-                { field: 'agriculturalContent', title: '农业实用技术培训内容', align: 'center', width: 150},
+                {field: 'development', title: '自主发展产业类别及规模', align: 'center', width: 150},
+                {field: 'yearIncrease', title: '自主发展预计年增收', align: 'center', width: 150},
+                {field: 'businessEntity', title: '经营主体带贫名称', align: 'center', width: 150},
+                {field: 'drivingMethod', title: '经营主体带贫带动方式', align: 'center', width: 150},
+                {field: 'driveIncome', title: '经营主体带贫带动增收', align: 'center', width: 150},
+                {field: 'ndustryAwards', title: '产业发展奖补', align: 'center', width: 150},
+                {field: 'policySubsidies', title: '产业发展政策性补助', align: 'center', width: 150},
+                {field: 'agriculturalTraining', title: '农业实用技术培训时间', align: 'center', width: 150},
+                {field: 'agriculturalContent', title: '农业实用技术培训内容', align: 'center', width: 150},
 
-                { field: 'relocationAllowance', title: '易地搬迁补助', align: 'center', width: 150 },
-                { field: 'educationGuaranteeSchool', title: '教育扶贫保障就读学校', align: 'center', width: 150 },
-                { field: 'typeSubsidy', title: '教育扶贫保障补助类型', align: 'center', width: 150 },
-                { field: 'educationGrantAmount', title: '教育扶贫保障补助金额', align: 'center', width: 150 },
-                { field: 'ncmsReduction', title: '健康扶贫保障新农合减免', align: 'center', width: 150 },
-                { field: 'reimbursementCombinedTherapy', title: '健康扶贫保障合疗报销', align: 'center', width: 150 },
-                { field: 'linCompensation', title: '生态扶贫保障公益林补偿', align: 'center', width: 150},
-                { field: 'rangerCompensation', title: '生态扶贫保障生态护林员', sort: true },
-                { field: 'loanAmount', title: '金融扶贫保障小额信贷及互助资金协会借款金额', align: 'center', width: 150},
-                { field: 'industryTypeScale', title: '金融扶贫保障发展产业类型及规模', align: 'center', width: 150 },
-                { field: 'pensionIncome', title: '社会保障养老保险年收入', align: 'center', width: 150 },
-                { field: 'oldAgeAllowance', title: '社会保障高龄补贴年收入', align: 'center', width: 150 },
-                { field: 'disabilityAllowance', title: '社会保障残疾补助年收入', align: 'center', width: 150 },
-                { field: 'pocketType', title: '社会保障兜底保障类型', align: 'center', width: 150 },
-                { field: 'pocketAmount', title: '社会保障兜底保障年收入', align: 'center', width: 150},
-                ],
+                {field: 'relocationAllowance', title: '易地搬迁补助', align: 'center', width: 150},
+                {field: 'educationGuaranteeSchool', title: '教育扶贫保障就读学校', align: 'center', width: 150},
+                {field: 'typeSubsidy', title: '教育扶贫保障补助类型', align: 'center', width: 150},
+                {field: 'educationGrantAmount', title: '教育扶贫保障补助金额', align: 'center', width: 150},
+                {field: 'ncmsReduction', title: '健康扶贫保障新农合减免', align: 'center', width: 150},
+                {field: 'reimbursementCombinedTherapy', title: '健康扶贫保障合疗报销', align: 'center', width: 150},
+                {field: 'linCompensation', title: '生态扶贫保障公益林补偿', align: 'center', width: 150},
+                {field: 'rangerCompensation', title: '生态扶贫保障生态护林员', sort: true},
+                {field: 'loanAmount', title: '金融扶贫保障小额信贷及互助资金协会借款金额', align: 'center', width: 150},
+                {field: 'industryTypeScale', title: '金融扶贫保障发展产业类型及规模', align: 'center', width: 150},
+                {field: 'pensionIncome', title: '社会保障养老保险年收入', align: 'center', width: 150},
+                {field: 'oldAgeAllowance', title: '社会保障高龄补贴年收入', align: 'center', width: 150},
+                {field: 'disabilityAllowance', title: '社会保障残疾补助年收入', align: 'center', width: 150},
+                {field: 'pocketType', title: '社会保障兜底保障类型', align: 'center', width: 150},
+                {field: 'pocketAmount', title: '社会保障兜底保障年收入', align: 'center', width: 150},
+            ],
             done: function () {
                 // 表格搜索
                 form.on('submit(organizationUserTbSearch)', function (data) {
-                    insTb.reload({ where: data.field, page: { curr: 1 } });
+                    insTb.reload({where: data.field, page: {curr: 1}});
                     return false;
                 });
             }
         });
         /* 表格工具条点击事件 */
-       
+
         table.on('tool(organizationUserTable2)', function (obj) {
             if (obj.event === 'edit') { // 修改
                 showEditModel2(obj.data);
-               
+
             } else if (obj.event === 'del') { // 删除
                 var ids = [];
-               ids.push(obj.data.pid)
-                doDel2 ({ids: ids});
+                ids.push(obj.data.pid)
+                doDel2({ids: ids});
             }
         });
-// 表格头工具栏点击事件
-table .on('toolbar(organizationUserTbToolBar2)',function(obj){
-(obj.event==='export')
-
-
-
-
-})
 
         /* 表格头工具栏点击事件 */
         table.on('toolbar(organizationUserTable2)', function (obj) {
@@ -1098,19 +1094,23 @@ table .on('toolbar(organizationUserTbToolBar2)',function(obj){
             } else if (obj.event === 'del') { // 删除
                 var checkRows = table.checkStatus('organizationUserTable2');
                 if (checkRows.data.length === 0) {
-                    layer.msg('请选择要删除的数据', { icon: 2 });
+                    layer.msg('请选择要删除的数据', {icon: 2});
                     return;
                 }
                 var ids = checkRows.data.map(function (d) {
                     return d.pid;
                 });
                 doDel2({ids: ids});
+            } else if(obj.event === 'export'){
+                admin.req("api/est/person/export", {}, function(resp){
+
+                }, 'get')
             }
         });
 
         /* 显示表单弹窗2 */
         function showEditModel2(mData) {
-            
+
             admin.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '人员信息',
@@ -1120,26 +1120,26 @@ table .on('toolbar(organizationUserTbToolBar2)',function(obj){
                     // 回显表单数据
                     form.val('organizationUserEditForm', mData);
                     // 表单提交事件
-                
+
                     form.on('submit(organizationUserEditSubmit2)', function (data) {
                         data.field.organizationId = selObj ? selObj.data.organizationId : undefined;
                         var loadIndex = layer.load(2);
                         $.ajax({
-                            type:"post",
-                            headers: {"token":layui.data(layui.setter.tableName)['token']},
+                            type: "post",
+                            headers: {"token": layui.data(layui.setter.tableName)['token']},
                             contentType: "application/json;charset=UTF-8",
-                            url: mData?setter.baseServer + 'api/est/person/deleteList':setter.baseServer + 'api/est/person/save',
+                            url: mData ? setter.baseServer + 'api/est/person/deleteList' : setter.baseServer + 'api/est/person/save',
                             data: JSON.stringify(data.field),
                             dataType: 'json',
-                            success: function(res) {
+                            success: function (res) {
                                 console.log(res)
                                 layer.close(loadIndex);
                                 if (0 === res.code) {
                                     layer.close(dIndex);
-                                    layer.msg(res.msg, { icon: 1 });
-                                    insTb.reload({ page: { curr: 1 } });
+                                    layer.msg(res.msg, {icon: 1});
+                                    insTb.reload({page: {curr: 1}});
                                 } else {
-                                    layer.msg(res.message, { icon: 2 });
+                                    layer.msg(res.message, {icon: 2});
                                 }
                             }
                         });
@@ -1153,113 +1153,112 @@ table .on('toolbar(organizationUserTbToolBar2)',function(obj){
 
             //三级联动 
 
-            layer.ready(function(){
-        $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1",function (data) {
-            var $html = "";
-            if(data.data != null) {
-                $.each(data.data, function (index, item) {
-                    $html += "<option value='" + item.did + "'>" + item.district + "</option>";
+            layer.ready(function () {
+                $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1", function (data) {
+                    var $html = "";
+                    if (data.data != null) {
+                        $.each(data.data, function (index, item) {
+                            $html += "<option value='" + item.did + "'>" + item.district + "</option>";
+                        });
+                        $("#roleId").append($html);
+                    }
+                    form.render('select');
                 });
-                $("#roleId").append($html);
-            }
-            form.render('select');
-        });
 
-    });
+            });
 //监听乡镇下拉框
 
-  form.on('select(roleId)', function(dataObj){
-    //移除城市下拉框所有选项
-    $("#account").empty();
-    var accountHtml = '<option value="">请选择或搜索市</option>';
-    $("#account").html(accountHtml);
-    var resettlementPointHtml = '<option value="">请选择或搜索县/区</option>';
-    $("#resettlementPoint").html(resettlementPointHtml);
-    roleIdText = $("#roleId").find("option:selected").text();
-    var value = $("#roleId").val();
-    //异步加载下拉框数据
-    
-    $.post(setter.baseServer + "region/est/township/select",{"disId":value},function (data) {
-        var $html = "";
-        if(data.data != null) {
-          $.each(data.data, function (index, item) {
-            $html += "<option value='" + item.tid + "'>" + item.township + "</option>";
-          });
-          $("#account").append($html);
-         
-          form.render('select');
-        }
-    });
-  
-  });
-  
-  //监听安置点
-  form.on('select(account)', function(dataObj){
- 
-    $("#resettlementPoint").empty();
-    var html = '<option value="">请选择或搜索县/区</option>';
-    $("#resettlementPoint").html(html);
-  
-    accountText = $("#account").find("option:selected").text();
-    var value = $("#account").val();
-   
-    $.get(setter.baseServer + "region/est/resettlement/selectList",{"towId":value},function (data) {
-   
-        var $html = "";
-        if(data.data != null) {
-          $.each(data.data, function (index, item) {
-             
-            $html += "<option value='" + item.rid + "'>" + item.resettlementPoint + "</option>";
-            
-          });
-          $("#resettlementPoint").append($html);
-          //append后必须从新渲染
-          form.render('select');
-        }
-    //   }
-  
-    });
-  
-});
+            form.on('select(roleId)', function (dataObj) {
+                //移除城市下拉框所有选项
+                $("#account").empty();
+                var accountHtml = '<option value="">请选择或搜索市</option>';
+                $("#account").html(accountHtml);
+                var resettlementPointHtml = '<option value="">请选择或搜索县/区</option>';
+                $("#resettlementPoint").html(resettlementPointHtml);
+                roleIdText = $("#roleId").find("option:selected").text();
+                var value = $("#roleId").val();
+                //异步加载下拉框数据
+
+                $.post(setter.baseServer + "region/est/township/select", {"disId": value}, function (data) {
+                    var $html = "";
+                    if (data.data != null) {
+                        $.each(data.data, function (index, item) {
+                            $html += "<option value='" + item.tid + "'>" + item.township + "</option>";
+                        });
+                        $("#account").append($html);
+
+                        form.render('select');
+                    }
+                });
+
+            });
+
+            //监听安置点
+            form.on('select(account)', function (dataObj) {
+
+                $("#resettlementPoint").empty();
+                var html = '<option value="">请选择或搜索县/区</option>';
+                $("#resettlementPoint").html(html);
+
+                accountText = $("#account").find("option:selected").text();
+                var value = $("#account").val();
+
+                $.get(setter.baseServer + "region/est/resettlement/selectList", {"towId": value}, function (data) {
+
+                    var $html = "";
+                    if (data.data != null) {
+                        $.each(data.data, function (index, item) {
+
+                            $html += "<option value='" + item.rid + "'>" + item.resettlementPoint + "</option>";
+
+                        });
+                        $("#resettlementPoint").append($html);
+                        //append后必须从新渲染
+                        form.render('select');
+                    }
+                    //   }
+
+                });
+
+            });
         }
 
-      
-   
+
         /* 删除2 */
         function doDel2(obj) {
-       
+
             layer.confirm('确定要删除选中用户吗？', {
                 skin: 'layui-layer-admin',
                 shade: .1
             }, function (i) {
                 layer.close(i);
                 var loadIndex = layer.load(2);
-            //    var parms=[];
-            //    for(var i=0;i<obj.ids.length;i++){
-            //        parms.push(obj.ids[i]);
-            //    }
-             
-              
+                //    var parms=[];
+                //    for(var i=0;i<obj.ids.length;i++){
+                //        parms.push(obj.ids[i]);
+                //    }
+
+
                 $.ajax({
-                        url:setter.baseServer + 'api/est/person/deleteList',
-                        type:'POST',
-                        async:false,
-                        data:JSON.stringify(obj),//向服务端发送删除的id
-                        contentType: "application/json;charset=UTF-8",
-                        headers: {"token":layui.data(layui.setter.tableName)['token']},
-                        success:function(res){
-                           if (0 === res.code) {
-                            layer.msg(res.msg, { icon: 1 });
-                            insTb.reload({ page: { curr: 1 } });
+                    url: setter.baseServer + 'api/est/person/deleteList',
+                    type: 'POST',
+                    async: false,
+                    data: JSON.stringify(obj),//向服务端发送删除的id
+                    contentType: "application/json;charset=UTF-8",
+                    headers: {"token": layui.data(layui.setter.tableName)['token']},
+                    success: function (res) {
+                        if (0 === res.code) {
+                            layer.msg(res.msg, {icon: 1});
+                            insTb.reload({page: {curr: 1}});
                         } else {
-                            layer.msg(res.message, { icon: 2 });
+                            layer.msg(res.message, {icon: 2});
                         }
-                        }
-                    });
-                    layer.close(loadIndex); 
-                     });
+                    }
+                });
+                layer.close(loadIndex);
+            });
         }
 
     });
-    
+
 </script>
