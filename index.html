@@ -80,25 +80,29 @@
 <!-- 侧边栏渲染模板 -->
 <script id="sideNav" type="text/html">
     {{#  layui.each(d, function(index, item){ }}
+    {{# if(item.status != 2 && item.menu){ }}
     <li class="layui-nav-item">
-        <a href="{{item.url}}" target="{{item.target}}">
+        <a href="{{item.url}}" target="_self">
             <i class="layui-icon {{item.icon}}"></i>&emsp;<cite>{{ item.name }}</cite>
         </a>
-        {{# if(item.subMenus&&item.subMenus.length>0){ getSubMenus(item.subMenus); } }}
+        {{# if(item.children&&item.children.length>0){ getSubMenus(item.children); } }}
     </li>
+    {{# } }}
     {{#  }); }}
     {{# function getSubMenus(subMenus){ }}
     <dl class="layui-nav-child">
         {{# layui.each(subMenus, function(index, subItem){ }}
+        {{# if(subItem.status != 2 && subItem.menu){ }}
         <dd>
-            <a href="{{ subItem.url }}" target="{{subItem.target}}">
+            <a href="{{ subItem.url }}" target="_self">
                 {{# if(subItem.icon){ }}
                 <i class="layui-icon {{subItem.icon}}"></i>&emsp;
                 {{# } }}
                 {{ subItem.name }}
             </a>
-            {{# if(subItem.subMenus&&subItem.subMenus.length>0){ getSubMenus(subItem.subMenus); } }}
+            {{# if(subItem.children&&subItem.children.length>0){ getSubMenus(subItem.children); } }}
         </dd>
+        {{# } }}
         {{# }); }}
     </dl>
     {{# } }}

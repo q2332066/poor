@@ -305,8 +305,8 @@ layui.define(["layer", "setter", "layRouter"], function (f) {
                     r._method = "PUT"
                 } else {
                     if ("delete" === t.toLowerCase()) {
-                        t = "GET";
-                        r._method = "DELETE"
+                        t = "DELETE";
+                        // r._method = "DELETE"
                     }
                 }
             }
@@ -329,6 +329,7 @@ layui.define(["layer", "setter", "layRouter"], function (f) {
                 }
             }
         }
+        u.async = false;
         var s = u.success;
         u.success = function (i, v, x) {
             var w = d.ajaxSuccessBefore(n.parseJSON(i), u.url, {
