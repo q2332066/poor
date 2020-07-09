@@ -1,0 +1,154 @@
+
+<link rel="stylesheet" href="assets/css/eleTree.css">
+<style>
+    #organizationTree1 {
+        border: 1px solid #e6e6e6;
+        border-top: none;
+        padding: 10px 5px;
+        overflow: auto;
+        height: -webkit-calc(100vh - 263px);
+        height: -moz-calc(100vh - 263px);
+        height: calc(100vh - 263px);
+    }
+
+    .layui-tree-entry .layui-tree-txt {
+        padding: 0 5px;
+        border: 1px transparent solid;
+        text-decoration: none !important;
+    }
+
+    .layui-tree-entry.ew-tree-click .layui-tree-txt {
+        background-color: #fff3e0;
+        border: 1px #FFE6B0 solid;
+    }
+
+    /* 右表搜索表单 */
+    #organizationUserTbSearchForm .layui-form-label {
+        box-sizing: border-box !important;
+        width: 90px !important;
+    }
+
+    #organizationUserTbSearchForm .layui-input-block {
+        margin-left: 90px !important;
+    }
+
+    /* 左树 */
+    #newRoot {
+        padding: 10px 15px;
+        border: 1px solid #e6e6e6;
+        background-color: #f2f2f2;
+    }
+
+</style>
+<div class="layui-fluid tree-main">
+    <div class="layui-row layui-col-space15">
+<!--        <div class="layui-col-md12">-->
+<!--            <div class="layui-card">-->
+<!--                <div class="layui-card-body ">-->
+<!--                    <div class="layui-input-inline layui-show-xs-block">-->
+<!--                        <input class="layui-input" placeholder="分类名" id="parentName"></div>-->
+<!--                    <div class="layui-input-inline layui-show-xs-block">-->
+<!--                        <button class="layui-btn" id="newRoot"><i class="layui-icon"></i>添加根目录</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="layui-col-sm6 layui-col-md3">
+            <div class="layui-card tree-content-50">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar" id="newRoot">
+                        <button id="organizationAddBtn" class="layui-btn layui-btn-sm icon-btn">
+                            <i class="layui-icon">&#xe654;</i>添加根目录
+                        </button>&nbsp;
+                    </div>
+                    <div id="organizationTree1" class="eleTree" lay-filter="tree"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-sm6 layui-col-md9">
+            <div class="layui-card tree-content-50">
+                <div class="layui-card-body ">
+                    <form class="layui-form" lay-filter="tree-form" id="organizationUserTbSearchForm">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">父级名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" readonly name="parentName"  placeholder="请输入名称" autocomplete="off" class="layui-input">
+                                <input type="hidden" name="parent">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name"  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                                <input type="hidden" name="id">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">编码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="code" lay-verify="required" placeholder="请输入编码" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">权限编码项</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">菜单路径</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="url"  placeholder="请输入菜单路径" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">外部链接</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="iframe"  placeholder="请输入外部链接" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">权限路径</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="authurl"  placeholder="请输入权限路径" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">图标</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="icon"  placeholder="请输入路径" autocomplete="off" class="layui-input" onchange="document.getElementById('icon-show').setAttribute('class', 'layui-icon ' + this.value)">
+                            </div>
+                            <i class="" id="icon-show" style="font-size: 20px;"></i>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">类型</label>
+                            <div class="layui-input-block">
+                                <select name="status" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">普通菜单</option>
+                                    <option value="1">根菜单</option>
+                                    <option value="2">权限项</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">序号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sortOrder" lay-verify="required" placeholder="请输入序号" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">权限编码项</div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">备注</label>
+                            <div class="layui-input-block">
+                                <textarea name="description" placeholder="请输入内容" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="submit">保存</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="assets/js/admin/admin-rule.js"></script>

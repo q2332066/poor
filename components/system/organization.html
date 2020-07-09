@@ -43,7 +43,7 @@
         <div class="layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-body" style="padding: 10px;">
-                   
+
                     <!-- 左树 -->
                     <div id="organizationTree1"></div>
                 </div>
@@ -68,7 +68,7 @@
 </script>
 <!-- 表格状态列 -->
 <script type="text/html" id="organizationUserTbState">
-   <input type="checkbox" lay-filter="userTbStateCk" value="{{d.uid}}" lay-skin="switch"
+    <input type="checkbox" lay-filter="userTbStateCk" value="{{d.uid}}" lay-skin="switch"
            lay-text="正常|锁定" {{!d.isDeleted?'checked':''}} style="display: none;"/>
     <p style="display: none;">{{d.state==0?'正常':'锁定'}}</p>
 </script>
@@ -100,7 +100,7 @@
                         <input name="nickName" class="layui-input" placeholder="输入用户名"/>
                     </div>
                 </div>
-               
+
                 <div class="layui-form-item text-right">
                     <button class="layui-btn icon-btn" lay-filter="organizationUserTbSearch" lay-submit>
                         <i class="layui-icon">&#xe615;</i>搜索
@@ -149,16 +149,16 @@
                 </div>
             </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">角色:</label>
-            <div class="layui-input-block">
-                <div id="roleName"></div>
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-form-required">角色:</label>
+                <div class="layui-input-block">
+                    <div id="roleName"></div>
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item text-right">
-            <button class="layui-btn" lay-filter="userEditSubmit" lay-submit>保存</button>
-            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
-        </div>
+            <div class="layui-form-item text-right">
+                <button class="layui-btn" lay-filter="userEditSubmit" lay-submit>保存</button>
+                <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+            </div>
     </form>
 </script>
 
@@ -177,99 +177,102 @@
         form.render('select', 'userTbSearchForm');
         var setter = layui.setter;
         var insTb;
+        var currentSelect = {
+            cityId: null,
+            disId: null,
+            towId: null,
+            rid: null
+        }
 
-       /* 渲染树形 */
-       function renderTree() {
+        /* 渲染树形 */
+        function renderTree() {
             $.ajax({
                 url: setter.baseServer + 'region/est/city/list',
                 type: 'post',
                 async: false,
-                headers: {"token":layui.data(layui.setter.tableName)['token']},
+                headers: {"token": layui.data(layui.setter.tableName)['token']},
                 success: function (res) {
-                if(res&&res.data){
-                    res.data.forEach(function(item){
-                        item.title = item.cityName;
-                        item.id = item.patentId;
-                        item.cityId = item.patentId;
-                        item.disId = null;
-                        item.towId = null;
-                        item.rid = null;
-                        item.spread = false;
-                        // 第二级
-                        if(item.children&&item.children.length){
-                            item.children.forEach(function(itemTwo){
-                                itemTwo.title = itemTwo.cityName;
-                                itemTwo.cityId = itemTwo.patentId;
-                                itemTwo.disId = itemTwo.cId;
-                                itemTwo.towId = null;
-                                itemTwo.rid=null;
-                                itemTwo.id = itemTwo.cId;
-                                itemTwo.spread = false;
-                                // 第三级
-                                if(itemTwo.children&&itemTwo.children.length){
-                                    itemTwo.children.forEach(function(itemThree){
-                                        itemThree.title = itemThree.cityName;
-                                        itemThree.cityId = itemTwo.patentId;
-                                        itemThree.disId = itemTwo.cId;
-                                        itemThree.towId = itemThree.cId;
-                                        itemThree.rid = null;
-                                        itemThree.id = itemThree.cId;
-                                        itemThree.spread = false;
-                                        // 第四级
-                                        if(itemThree.children&&itemThree.children.length){
-                                            itemThree.children.forEach(function(itemFour){
-                                                itemFour.title = itemFour.resettlementPoint;
-                                                itemFour.id = itemFour.rId;
-                                                itemFour.cityId = itemTwo.patentId;
-                                                itemFour.disId = itemTwo.cId;
-                                                itemFour.towId = itemThree.id;
-                                                itemFour.rid =  itemFour.rid;
-                                                itemFour.spread = false;
-                                            })
-                                        }
-                                    })
-                                }
-                            })
-                            
-                            
-                            
+                    if (res && res.data) {
+                        res.data.forEach(function (item) {
+                            item.title = item.cityName;
+                            item.id = item.patentId;
+                            item.cityId = item.patentId;
+                            item.disId = null;
+                            item.towId = null;
+                            item.rid = null;
+                            item.spread = false;
+                            // 第二级
+                            if (item.children && item.children.length) {
+                                item.children.forEach(function (itemTwo) {
+                                    itemTwo.title = itemTwo.cityName;
+                                    itemTwo.cityId = itemTwo.patentId;
+                                    itemTwo.disId = itemTwo.cId;
+                                    itemTwo.towId = null;
+                                    itemTwo.rid = null;
+                                    itemTwo.id = itemTwo.cId;
+                                    itemTwo.spread = false;
+                                    // 第三级
+                                    if (itemTwo.children && itemTwo.children.length) {
+                                        itemTwo.children.forEach(function (itemThree) {
+                                            itemThree.title = itemThree.cityName;
+                                            itemThree.cityId = itemTwo.patentId;
+                                            itemThree.disId = itemTwo.cId;
+                                            itemThree.towId = itemThree.cId;
+                                            itemThree.rid = null;
+                                            itemThree.id = itemThree.cId;
+                                            itemThree.spread = false;
+                                            // 第四级
+                                            if (itemThree.children && itemThree.children.length) {
+                                                itemThree.children.forEach(function (itemFour) {
+                                                    itemFour.title = itemFour.resettlementPoint;
+                                                    itemFour.id = itemFour.rId;
+                                                    itemFour.cityId = itemTwo.patentId;
+                                                    itemFour.disId = itemTwo.cId;
+                                                    itemFour.towId = itemThree.id;
+                                                    itemFour.rid = itemFour.rid;
+                                                    itemFour.spread = false;
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+
+
+                            }
+                        })
+                    }
+                    //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
+                    treeData = res.data ? res.data : []
+                    tree.render({
+                        elem: '#organizationTree1',
+                        onlyIconControl: true,
+                        data: treeData,
+                        click: function (obj) {
+                            selObj = obj;
+                            var thisObj = obj.data
+                            $('#organizationTree1').find('.ew-tree-click').removeClass('ew-tree-click');
+                            $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
+                            var setObj = new Object()
+                            setObj = {
+                                "cityId": thisObj.cityId,
+                                "disId": thisObj.disId,
+                                "towId": thisObj.towId,
+                                "resId": thisObj.rid
+                            }
+                            currentSelect = setObj
+                            insTb.reload({
+                                method: 'post',
+                                where: setObj,
+                                contentType: 'application/json',
+                                url: setter.baseServer + 'min/est/user/selectUser',
+                                headers: {"token": layui.data(layui.setter.tableName)['token']},
+                            });
 
                         }
-                    })
+                    });
                 }
-               //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
-                treeData = res.data?res.data:[]
-                tree.render({
-                    elem: '#organizationTree1',
-                    onlyIconControl: true,
-                    data: treeData,
-                    click: function (obj) {
-                        console.log(obj)
-                        selObj =  obj;
-                        var thisObj = obj.data
-                        $('#organizationTree1').find('.ew-tree-click').removeClass('ew-tree-click');
-                        $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
-                        var setObj = new Object()
-                        setObj = {
-                            "cityId": thisObj.cityId ,
-                            "disId": thisObj.disId,
-                            "towId": thisObj.towId,
-                            "resId": thisObj.resId
-                            
-                        }
-                        insTb.reload({
-                            method:'post',
-                            where: setObj,
-                            contentType: 'application/json',
-                            url: setter.baseServer + 'min/est/user/selectUser',
-                            headers: {"token":layui.data(layui.setter.tableName)['token']},
-                        });
-                        
-                    }
-                });
-            }
-        });
-            
+            });
+
         }
 
         renderTree();
@@ -285,41 +288,43 @@
             cols: [[
                 {type: 'checkbox'},
                 {type: 'numbers'},
-                {field: 'showName', title: '用户名',width: 100,align: 'center',},
-                {field: 'userName', title: '账号',width: 100,align: 'center', },
-   
-                { field: 'level', title: '账号等级', width: 130, align: 'center', templet: function (item){
+                {field: 'showName', title: '用户名', width: 100, align: 'center',},
+                {field: 'userName', title: '账号', width: 100, align: 'center',},
+                {
+                    field: 'level', title: '账号等级', width: 130, align: 'center', templet: function (item) {
 
-                    if (item.level == '0') {
-                                return "超级管理员";
+                        if (item.level == '0') {
+                            return "超级管理员";
                         } else if (item.level == '1') {
-                                return "市级管理员";
+                            return "市级管理员";
                         } else if (item.level == '2') {
-                                return "区县管理员";
-                            } else if (item.level == '3') {
-                                return "乡镇管理员";
-                            } else if (item.level == '4') {
-                                return "安置点管理员";
+                            return "区县管理员";
+                        } else if (item.level == '3') {
+                            return "乡镇管理员";
+                        } else if (item.level == '4') {
+                            return "安置点管理员";
                         } else {
                             return "";
-                      
 
-                }
 
-                }},
+                        }
+
+                    }
+                },
                 {
                     field: 'roleName', title: '角色', templet: function (data) {
-                        var name = data.roleTable&&data.roleTable.length&&data.roleTable[0].roleName;
+                        var name = data.roleTable && data.roleTable.length && data.roleTable[0].roleName;
                         return name;
                     }, sort: true, width: 150
                 },
-                
-                { field: 'createTime', title: '创建时间',width: 200,  align: 'center',templet: function (d) {
+
+                {
+                    field: 'createTime', title: '创建时间', width: 200, align: 'center', templet: function (d) {
                         return util.toDateString(d.createTime);
-                    }, 
+                    },
                 },
                 {field: 'state', title: '状态', templet: '#organizationUserTbState', sort: true, width: 100},
-                 {title: '操作', toolbar: '#organizationUserTbBar', align: 'center', width: 250, minWidth: 120}
+                {title: '操作', toolbar: '#organizationUserTbBar', align: 'center', width: 250, minWidth: 120}
             ]],
             done: function () {
                 // 表格搜索
@@ -329,25 +334,25 @@
                 });
             }
         });
-    
-    $('#organizationTree1').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
 
-    /* 表格工具条点击事件 */
-    table.on('tool(organizationUserTable1)', function (obj) {
-        if (obj.event === 'edit') { // 修改
+        $('#organizationTree1').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
+
+        /* 表格工具条点击事件 */
+        table.on('tool(organizationUserTable1)', function (obj) {
+            if (obj.event === 'edit') { // 修改
                 showEditModel(obj.data);
-               
+
             } else if (obj.event === 'del') { // 删除
-               var ids = [];
-               ids.push(obj.data.uid)
+                var ids = [];
+                ids.push(obj.data.uid)
                 doDel({ids: ids});
             } else if (obj.event === 'reset') { // 重置密码
                 resetPsw(obj);
             }
         });
-       
-     /* 表格头工具栏点击事件 */
-     table.on('toolbar(organizationUserTable1)', function (obj) {
+
+        /* 表格头工具栏点击事件 */
+        table.on('toolbar(organizationUserTable1)', function (obj) {
             if (obj.event === 'add') { // 添加
                 showEditModel();
             } else if (obj.event === 'del') { // 删除
@@ -363,7 +368,7 @@
             }
         });
 
-       /* 显示表单弹窗 */
+        /* 显示表单弹窗 */
         function showEditModel(mData) {
             admin.open({
                 type: 1,
@@ -375,107 +380,110 @@
                     // 表单提交事件
                     form.on('submit(userEditSubmit)', function (data) {
                         data.field.roleIds = insRoleSel.getValue('valueStr');
-                        data.field.regionalId = user_info.regionalId
+                        data.field.regionalId = currentSelect.cityId
                         data.field.roleId = data.field.roleIds.split(',')
+                        data.field.did = currentSelect.disId
+                        data.field.tid = currentSelect.towId
+                        data.field.rid = currentSelect.resId
                         var loadIndex = layer.load(2);
                         $.ajax({
-                        url:mData?setter.baseServer+'min/est/user/updateuser':setter.baseServer+'min/est/user/save',
-                        type:'POST',
-                        headers: {"token":layui.data(layui.setter.tableName)['token']},
-                        data:JSON.stringify(data.field),//向服务端发送删除的id
-                        contentType: "application/json;charset=UTF-8",
-                        success:function(res){
-                            layer.close(loadIndex);
-                            if (res.code === 0) {
-                                layer.close(dIndex);
-                                layer.msg(res.msg, {icon: 1});
-                                insTb.reload({page: {curr: 1}});
-                            } else {
-                                layer.msg(res.msg, {icon: 2});
+                            url: mData ? setter.baseServer + 'min/est/user/updateuser' : setter.baseServer + 'min/est/user/save',
+                            type: 'POST',
+                            headers: {"token": layui.data(layui.setter.tableName)['token']},
+                            data: JSON.stringify(data.field),//向服务端发送删除的id
+                            contentType: "application/json;charset=UTF-8",
+                            success: function (res) {
+                                layer.close(loadIndex);
+                                if (res.code === 0) {
+                                    layer.close(dIndex);
+                                    layer.msg(res.msg, {icon: 1});
+                                    insTb.reload({page: {curr: 1}});
+                                } else {
+                                    layer.msg(res.msg, {icon: 2});
+                                }
                             }
+                        });
+
+                    });
+
+                    var insRoleSel;
+                    admin.req('role/list', {page:1,limit:1000}, function(resp){
+
+                        var r = resp.data.records
+                        for(var i in r){
+                            r[i].value = r[i].id
                         }
-                    });
-                       
-                    });
-                    // 渲染多选下拉框
-                    var insRoleSel = xmSelect.render({
-                        el: '#roleName',
-                        name: 'roleName',
-                        layVerify: 'required',
-                        layVerType: 'tips',
-                        data: [{
-                         
-                            name: '市级',
-                            value: "1"
-                        }, {
-                            name: '区县级',
-                            value: "2"
-                        }, {
-                            name: '乡镇级',
-                            value: "3"
-                        }, {
-                            name: '安置点级',
-                            value: "4"
-                        }]
-                    });
-                    // 回显选中角色
-                    if (mData && mData.roles) {
-                        insRoleSel.setValue(mData.roles.map(function (item) {
-                            return item.roleId;
-                        }));
-                    }
+
+                        // 渲染多选下拉框
+                        insRoleSel = xmSelect.render({
+                            el: '#roleName',
+                            name: 'roleName',
+                            layVerify: 'required',
+                            layVerType: 'tips',
+                            data: r/*[{
+
+                                name: '市级',
+                                value: "1"
+                            }, {
+                                name: '区县级',
+                                value: "2"
+                            }, {
+                                name: '乡镇级',
+                                value: "3"
+                            }, {
+                                name: '安置点级',
+                                value: "4"
+                            }]*/
+                        });
+                        // 回显选中角色
+                        if (mData && mData.roleId) {
+                            insRoleSel.setValue(mData.roleId);
+                        }
+                    }, 'get')
+
                     // 禁止弹窗出现滚动条
                     $(layero).children('.layui-layer-content').css('overflow', 'visible');
                 }
             });
-      
+
         }
 
         /* 删除2 */
         function doDel(obj) {
-            console.log(obj)
             layer.confirm('确定要删除选中用户吗？', {
                 skin: 'layui-layer-admin',
                 shade: .1
             }, function (i) {
                 layer.close(i);
                 var loadIndex = layer.load(2);
-                
-                  $.ajax({
-                        url:setter.baseServer + 'min/est/user/deletelist',
-                        type:'POST',
-                        async:false,
-                        data:JSON.stringify(obj),//向服务端发送删除的id
-                        headers: {"token":layui.data(layui.setter.tableName)['token']},
-                        contentType: "application/json;charset=UTF-8",
-                    
-                        success:function(res){
-                           if (0=== res.code) {
-                            layer.msg(res.msg, { icon: 1 });
-                            insTb.reload({ page: { curr: 1 } });
-                        } else {
-                            layer.msg(res.msg, { icon: 2 });
-                        }
-                        }
-                    });
-                    layer.close(loadIndex); 
-                     });
+
+                admin.req('min/est/user/deletelist',JSON.stringify(obj), function (res) {
+                    if (0 === res.code) {
+                        layer.msg(res.msg, {icon: 1});
+                        insTb.reload({page: {curr: 1}});
+                    } else {
+                        layer.msg(res.message, {icon: 2});
+                    }
+                }, 'post', {contentType: "application/json;charset=UTF-8"});
+                layer.close(loadIndex);
+            });
         }
-          /* 修改用户状态 */
-          form.on('switch(userTbStateCk)', function (obj) {
-              console.log(obj)
+
+        /* 修改用户状态 */
+        form.on('switch(userTbStateCk)', function (obj) {
+            console.log(obj)
             var loadIndex = layer.load(2);
 
-            
+
             admin.req('/min/est/user/remove', {
-           
+
                 uid: obj.elem.value,
-                
+
                 state: obj.elem.checked ? 0 : 1
             }, function (res) {
                 layer.close(loadIndex);
                 if (res.code === 0) {
-                    layer.msg(res.msg, {icon: 1, time:1000});
+                    layer.msg(res.msg, {icon: 1, time: 1000});
                 } else {
                     layer.msg(res.msg, {icon: 2});
                     $(obj.elem).prop('checked', !obj.elem.checked);
@@ -483,6 +491,7 @@
                 }
             }, 'post');
         });
+
         function resetPsw(obj) {
             layer.confirm('确定要重置“' + obj.data.showName + '”的登录密码吗？', {
                 skin: 'layui-layer-admin',
