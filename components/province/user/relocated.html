@@ -43,7 +43,7 @@
         <div class="layui-col-md3">
             <div class="layui-card">
                 <div class="layui-card-body" style="padding: 10px;">
-                 
+
                     <div id="organizationTree6"></div>
                 </div>
             </div>
@@ -107,6 +107,7 @@
         var xmSelect = layui.xmSelect;
         var selObj, treeData;  // 左树选中数据
         var setter = layui.setter
+        var currentSearch = {};
 
        /* 渲染树形 */
        function renderTree() {
@@ -159,9 +160,9 @@
                                     })
                                 }
                             })
-                            
-                            
-                            
+
+
+
 
                         }
                     })
@@ -218,21 +219,39 @@
                  {field: 'torfLive', title: '是否实际入住',  align: 'center', width: 150},
                  {field: 'specificAddr', title: '目前具体地址', align: 'center', width: 150},
                  {field: 'torfDismantle', title: '是否拆旧复垦',  align: 'center', width: 150},
-                
-               
+
+
              ]],
              done: function () {
                // 表格搜索
               form.on('submit(organizationUserTbSearch)', function (data) {
+                  currentSearch = data.field;
                     insTb.reload({where: data.field, page: {curr: 1}});
                      return false;
                  });
              }
          });
 
-       
+        table.on('toolbar(organizationUserTable6)', function (obj) {
+            if(obj.event === 'export'){
+                window.location.href = setter.baseServer + 'api/est/person/export?type=2&' + parseParam(currentSearch);
+            }
+        })
 
-     
+        var parseParam=function(param, key){
+            var paramStr="";
+            if(param instanceof String||param instanceof Number||param instanceof Boolean){
+                paramStr+="&"+key+"="+encodeURIComponent(param);
+            }else{
+                $.each(param,function(i){
+                    var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
+                    paramStr+='&'+parseParam(this, k);
+                });
+            }
+            return paramStr.substr(1);
+        };
+
+
 
     });
 </script>

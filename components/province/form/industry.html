@@ -107,6 +107,7 @@
         var xmSelect = layui.xmSelect;
         var selObj, treeData;  // 左树选中数据
         var setter = layui.setter
+        var currentSearch = {};
  /* 渲染树形 */
  function renderTree() {
             $.ajax
@@ -222,13 +223,31 @@
              done: function () {
                // 表格搜索
               form.on('submit(organizationUserTbSearch)', function (data) {
+                  currentSearch = data.field;
                     insTb.reload({where: data.field, page: {curr: 1}});
                      return false;
                  });
              }
          });
 
-       
+        table.on('toolbar(organizationUserTable8)', function (obj) {
+            if(obj.event === 'export'){
+                window.location.href = setter.baseServer + 'api/est/person/export?type=3&' + parseParam(currentSearch);
+            }
+        })
+
+        var parseParam=function(param, key){
+            var paramStr="";
+            if(param instanceof String||param instanceof Number||param instanceof Boolean){
+                paramStr+="&"+key+"="+encodeURIComponent(param);
+            }else{
+                $.each(param,function(i){
+                    var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
+                    paramStr+='&'+parseParam(this, k);
+                });
+            }
+            return paramStr.substr(1);
+        };
 
      
 
