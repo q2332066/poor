@@ -110,7 +110,7 @@
         var xmSelect = layui.xmSelect;
         var selObj, treeData;  // 左树选中数据
         var setter = layui.setter;
-        var currentSearch = {}
+        var $currentSearch;
 
      /* 渲染树形 */
      function renderTree() {
@@ -189,6 +189,7 @@
                             "resettlementPointId": thisObj.resettlementPointId,
                             "towId": thisObj.towId
                         }
+                        $currentSearch = setObj;
                         insTb.reload({
                             method:'post',
                             where: setObj,
@@ -237,7 +238,6 @@
              done: function () {
                // 表格搜索
               form.on('submit(organizationUserTbSearch)', function (data) {
-                  currentSearch = data.field;
                     insTb.reload({where: data.field, page: {curr: 1}});
                      return false;
                  });
@@ -246,7 +246,17 @@
 
         table.on('toolbar(organizationUserTable9)', function (obj) {
             if(obj.event === 'export'){
-                window.location.href = setter.baseServer + 'api/est/person/export?type=4&' + parseParam(currentSearch);
+                $.ajax({
+                    url: setter.baseServer + 'min/est/user/get-login-info',
+                    type: 'GET',
+                    headers: {"token": setter.getToken()},
+                    success: function (res) {
+                        var user = res.data.userInfo
+                        window.location.href = setter.baseServer + 'api/est/person/export?type=4&uid=' + user.uid + '&level=' + user.level + '&regional=' + user.regionalId
+                            + "&did=" + user.did + '&tid=' + user.tid + '&sid=' + user.sid + '&cityId=' +$currentSearch.cityId + '&disId=' + $currentSearch.disId +
+                                '&resettlementPointId=' + $currentSearch.resettlementPointId + '&towId=' + $currentSearch.towId
+                    }
+                })
             }
         })
 

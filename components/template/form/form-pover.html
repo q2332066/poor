@@ -10,10 +10,10 @@
 
         float: left;
         width: 90%;
-        padding: 800x 150px;
-        background-color: #dbd8d6;
+        /*padding: 800px,150px;*/
+        background-color: white;
         height: 500px;
-        width: 700px;
+        width: 820px;
         overflow-y: scroll;
 
     }
@@ -49,6 +49,10 @@
     #organizationUserTbSearchForm .layui-input-block {
         margin-left: 90px !important;
     }
+
+    .layui-layer-close1 {
+        color: white!important;
+    }
 </style>
 <!-- 正文开始 -->
 <div class="layui-fluid" style="padding-bottom: 0;">
@@ -77,7 +81,7 @@
 <script type="text/html" id="organizationUserTbBar2">
     <!-- <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a> -->
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+<!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <!-- 表格工具列 -->
@@ -144,9 +148,24 @@
 </script>
 
 
+<style>
+    .layui-form-pane .layui-form-label {
+        width: 150px !important;
+    }
+
+    .layui-input-block {
+        margin-left: 150px !important;
+    }
+
+    .layui-layer.layui-layer-admin .layui-layer-setwin a {
+        color: white !important;
+    }
+</style>
 <!-- 表单弹窗 -->
+<!--<link rel="stylesheet" href="assets/css/okadmin.css?v=318"/>-->
 <script type="text/html" id="organizationUserEditDialog2">
-    <form id="organizationUserEditForm" lay-filter="organizationUserEditForm" class="layui-form model-form">
+    <form id="organizationUserEditForm" lay-filter="organizationUserEditForm"
+          class="layui-form model-form layui-form-pane">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 5px;">
             <legend></legend>
         </fieldset>
@@ -158,7 +177,7 @@
                 <li>产业发展政策保证</li>
                 <li>已享受帮扶政策</li>
             </ul>
-            <div class="layui-tab-content" style="height: 100px;">
+            <div class="layui-tab-content" style="overflow: auto;">
                 <div class="layui-tab-item layui-show">
 
                     <input name="userId" type="hidden"/>
@@ -340,7 +359,7 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label ">脱贫时间</label>:</label>
+                            <label class="layui-form-label ">脱贫时间:</label>
                             <div class="layui-input-block">
                                 <input name="poorTime" placeholder="请输入" class="layui-input"
                                        lay-verType="tips"/>
@@ -840,7 +859,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-md6 layui-col-lg6">>
+                    <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-form-text">社会保障兜底保障年收入:</label>
                             <div class="layui-input-block">
@@ -848,11 +867,16 @@
                                        lay-verType="tips">
                             </div>
                         </div>
+                        <input type="hidden" name="personnelInformationId">
+                        <input type="hidden" name="pid" id="pid">
                         <div class="layui-form-item text-right">
                             <button class="layui-btn" lay-filter="organizationUserEditSubmit2" lay-submit>保存</button>
                             <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </form>
 </script>
 
@@ -954,6 +978,7 @@
                                 "resettlementPointId": thisObj.resettlementPointId,
                                 "towId": thisObj.towId
                             }
+                            currentSearch = setObj
                             insTb.reload({
                                 method: 'post',
                                 where: setObj,
@@ -1103,19 +1128,29 @@
                     return d.pid;
                 });
                 doDel2({ids: ids});
-            } else if(obj.event === 'export'){
-                window.location.href = setter.baseServer + 'api/est/person/export?type=0&' + parseParam(currentSearch);
+            } else if (obj.event === 'export') {
+                $.ajax({
+                    url: setter.baseServer + 'min/est/user/get-login-info',
+                    type: 'GET',
+                    headers: {"token": setter.getToken()},
+                    success: function (res) {
+                        var user = res.data.userInfo
+                        window.location.href = setter.baseServer + 'api/est/person/export?type=0&uid=' + user.uid + '&level=' + user.level + '&regional=' + user.regionalId
+                            + "&did=" + user.did + '&tid=' + user.tid + '&sid=' + user.sid + '&cityId=' +currentSearch.cityId + '&disId=' + currentSearch.disId +
+                            '&resettlementPointId=' + currentSearch.resettlementPointId + '&towId=' + currentSearch.towId
+                    }
+                })
             }
         });
 
-        var parseParam=function(param, key){
-            var paramStr="";
-            if(param instanceof String||param instanceof Number||param instanceof Boolean){
-                paramStr+="&"+key+"="+encodeURIComponent(param);
-            }else{
-                $.each(param,function(i){
-                    var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
-                    paramStr+='&'+parseParam(this, k);
+        var parseParam = function (param, key) {
+            var paramStr = "";
+            if (param instanceof String || param instanceof Number || param instanceof Boolean) {
+                paramStr += "&" + key + "=" + encodeURIComponent(param);
+            } else {
+                $.each(param, function (i) {
+                    var k = key == null ? i : key + (param instanceof Array ? "[" + i + "]" : "." + i);
+                    paramStr += '&' + parseParam(this, k);
                 });
             }
             return paramStr.substr(1);
@@ -1123,11 +1158,10 @@
 
         /* 显示表单弹窗2 */
         function showEditModel2(mData) {
-
             admin.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '人员信息',
-                area: ['730px', '5px'],
+                area: ['850px', '5px'],
                 content: $('#organizationUserEditDialog2').html(),
                 success: function (layero, dIndex) {
                     // 回显表单数据
@@ -1136,23 +1170,23 @@
 
                     form.on('submit(organizationUserEditSubmit2)', function (data) {
                         data.field.organizationId = selObj ? selObj.data.organizationId : undefined;
+                        data.field.pId = data.field.pid;
                         var loadIndex = layer.load(2);
                         $.ajax({
                             type: "post",
                             headers: {"token": layui.data(layui.setter.tableName)['token']},
                             contentType: "application/json;charset=UTF-8",
-                            url: mData ? setter.baseServer + 'api/est/person/deleteList' : setter.baseServer + 'api/est/person/save',
+                            url: mData ? setter.baseServer + 'api/est/person/update' : setter.baseServer + 'api/est/person/save',
                             data: JSON.stringify(data.field),
                             dataType: 'json',
                             success: function (res) {
-                                console.log(res)
                                 layer.close(loadIndex);
                                 if (0 === res.code) {
                                     layer.close(dIndex);
                                     layer.msg(res.msg, {icon: 1});
                                     insTb.reload({page: {curr: 1}});
                                 } else {
-                                    layer.msg(res.message, {icon: 2});
+                                    layer.msg(res.msg, {icon: 2});
                                 }
                             }
                         });
@@ -1163,77 +1197,111 @@
                 }
             });
 
+            layer.ready(function () {
+                console.log(mData)
 
-            //三级联动 
+                //三级联动
+                var did = mData ? mData.did : "";
+                var tid = mData ? mData.tid : "";
+                var rid = mData ? mData.rid : "";
+                console.log(did, tid, rid)
+                admin.req("region/est/district/selectDistrictList?cityId=1",{}, function (data) {
+                    var $html = "";
+                    var sdid = null;
+                    if (data.data != null) {
+                        $.each(data.data, function (index, item) {
+                            var s = item.did == mData.did ? 'selected' : ''
+                            sdid = item.did == mData.did ? item.did : null
+                            $html += "<option value='" + item.did + "' " + s + ">" + item.district + "</option>";
+                        });
+                        $("#roleId").append($html);
+                    }
+                    // form.render('select');
 
-    layer.ready(function(){
-        $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1",function (data) {
-            var $html = "";
-            if(data.data != null) {
-                $.each(data.data, function (index, item) {
-                    $html += "<option value='" + item.did + "'>" + item.district + "</option>";
+                    admin.req("region/est/township/select", {"disId": mData.did}, function (data) {
+                        $html = "";
+                        var stid = null;
+                        if (data.data != null) {
+                            $.each(data.data, function (index, item) {
+                                var s = item.tid == mData.tid ? "selected" : ""
+                                stid = item.tid == mData.tid ? item.tid : null
+                                $html += "<option value='" + item.tid + "'" + s + ">" + item.township + "</option>";
+                            });
+                            $("#account").append($html);
+                            // form.render('select');
+                            $.get(setter.baseServer + "region/est/resettlement/selectList", {"towId": mData.tid}, function (data) {
+                                $html = "";
+                                if (data.data != null) {
+                                    $.each(data.data, function (index, item) {
+                                        var s = item.rid == mData.rid ? "selected" : "";
+                                        $html += "<option value='" + item.rid + "'" + s + ">" + item.resettlementPoint + "</option>";
+
+                                    });
+                                    $("#resettlementPoint").append($html);
+                                    //append后必须从新渲染
+                                    form.render('select');
+                                }
+
+                            });
+                        }
+                    }, 'post');
+                }, 'get');
+
+                //监听乡镇下拉框
+                form.on('select(roleId)', function (dataObj) {
+                    //移除城市下拉框所有选项
+                    $("#account").empty();
+                    var accountHtml = '<option value="">请选择或搜索市</option>';
+                    $("#account").html(accountHtml);
+                    var resettlementPointHtml = '<option value="">请选择或搜索县/区</option>';
+                    $("#resettlementPoint").html(resettlementPointHtml);
+                    roleIdText = $("#roleId").find("option:selected").text();
+                    var value = $("#roleId").val();
+                    //异步加载下拉框数据
+
+                    $.post(setter.baseServer + "region/est/township/select", {"disId": value}, function (data) {
+                        var $html = "";
+                        if (data.data != null) {
+                            $.each(data.data, function (index, item) {
+                                $html += "<option value='" + item.tid + "'>" + item.township + "</option>";
+                            });
+                            $("#account").append($html);
+
+                            form.render('select');
+                        }
+                    });
+
                 });
-                $("#roleId").append($html);
-            }
-            form.render('select');
-        });
-        
-//监听乡镇下拉框
 
-form.on('select(roleId)', function(dataObj){
-    //移除城市下拉框所有选项
-    $("#account").empty();
-    var accountHtml = '<option value="">请选择或搜索市</option>';
-    $("#account").html(accountHtml);
-    var resettlementPointHtml = '<option value="">请选择或搜索县/区</option>';
-    $("#resettlementPoint").html(resettlementPointHtml);
-    roleIdText = $("#roleId").find("option:selected").text();
-    var value = $("#roleId").val();
-    //异步加载下拉框数据
-    
-    $.post(setter.baseServer + "region/est/township/select",{"disId":value},function (data) {
-        var $html = "";
-        if(data.data != null) {
-          $.each(data.data, function (index, item) {
-            $html += "<option value='" + item.tid + "'>" + item.township + "</option>";
-          });
-          $("#account").append($html);
-         
-          form.render('select');
-        }
-    });
-  
-  });
-  
-  //监听安置点
-  form.on('select(account)', function(dataObj){
- 
-    $("#resettlementPoint").empty();
-    var html = '<option value="">请选择或搜索县/区</option>';
-    $("#resettlementPoint").html(html);
-  
-    accountText = $("#account").find("option:selected").text();
-    var value = $("#account").val();
-   
-    $.get(setter.baseServer + "region/est/resettlement/selectList",{"towId":value},function (data) {
-   
-        var $html = "";
-        if(data.data != null) {
-          $.each(data.data, function (index, item) {
-             
-            $html += "<option value='" + item.rid + "'>" + item.resettlementPoint + "</option>";
-            
-          });
-          $("#resettlementPoint").append($html);
-          //append后必须从新渲染
-          form.render('select');
-        }
-    //   }
-  
-    });
-  
-});
-    });
+                //监听安置点
+                form.on('select(account)', function (dataObj) {
+
+                    $("#resettlementPoint").empty();
+                    var html = '<option value="">请选择或搜索县/区</option>';
+                    $("#resettlementPoint").html(html);
+
+                    accountText = $("#account").find("option:selected").text();
+                    var value = $("#account").val();
+
+                    $.get(setter.baseServer + "region/est/resettlement/selectList", {"towId": value}, function (data) {
+
+                        var $html = "";
+                        if (data.data != null) {
+                            $.each(data.data, function (index, item) {
+
+                                $html += "<option value='" + item.rid + "'>" + item.resettlementPoint + "</option>";
+
+                            });
+                            $("#resettlementPoint").append($html);
+                            //append后必须从新渲染
+                            form.render('select');
+                        }
+                        //   }
+
+                    });
+
+                });
+            });
 
             layer.ready(function () {
                 $.get(setter.baseServer + "region/est/district/selectDistrictList?cityId=1", function (data) {
@@ -1333,7 +1401,7 @@ form.on('select(roleId)', function(dataObj){
                             layer.msg(res.msg, {icon: 1});
                             insTb.reload({page: {curr: 1}});
                         } else {
-                            layer.msg(res.message, {icon: 2});
+                            layer.msg(res.msg, {icon: 2});
                         }
                     }
                 });

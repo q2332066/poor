@@ -187,6 +187,7 @@
                             "towId": thisObj.towId,
                             "relationship":"户主"
                         }
+                        currentSearch=setObj
                         insTb.reload({
                             method:'post',
                             where: setObj,
@@ -234,7 +235,17 @@
 
         table.on('toolbar(organizationUserTable6)', function (obj) {
             if(obj.event === 'export'){
-                window.location.href = setter.baseServer + 'api/est/person/export?type=2&' + parseParam(currentSearch);
+                $.ajax({
+                    url: setter.baseServer + 'min/est/user/get-login-info',
+                    type: 'GET',
+                    headers: {"token": setter.getToken()},
+                    success: function (res) {
+                        var user = res.data.userInfo
+                        window.location.href = setter.baseServer + 'api/est/person/export?type=2&uid=' + user.uid + '&level=' + user.level + '&regional=' + user.regionalId
+                            + "&did=" + user.did + '&tid=' + user.tid + '&sid=' + user.sid + '&cityId=' +currentSearch.cityId + '&disId=' + currentSearch.disId +
+                            '&resettlementPointId=' + currentSearch.resettlementPointId + '&towId=' + currentSearch.towId
+                    }
+                })
             }
         })
 

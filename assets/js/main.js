@@ -95,22 +95,15 @@ layui.config({
     //     });
     // });
 
-    $.ajax({
-        url:setter.baseServer +'min/est/roleauthority/selectAuth',
-        headers: {"token":layui.data(layui.setter.tableName)['token']},
-        success:function(res){
-          
-            index.regRouter(res.data);  // 注册路由s
-            index.renderSide(res);  // 渲染侧边栏
-            // 加载主页
-            index.loadHome({
-                url:'#/layui/tcs',
-                iframe:'http://192.168.101.57:8080/day25/DemoServlet3 ',
-            });
-        },
-      
-
-    })
+    admin.req('min/est/roleauthority/selectAuth',{},function(res){
+        index.regRouter(res.data);  // 注册路由s
+        index.renderSide(res);  // 渲染侧边栏
+        // 加载主页
+        index.loadHome({
+            url:'#/layui/tcs',
+            iframe:'http://192.168.101.57:8080/day25/DemoServlet3 ',
+        });
+    }, 'get')
 
 
 });
