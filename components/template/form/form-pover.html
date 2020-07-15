@@ -80,7 +80,7 @@
 <!-- 表格操作列 -->
 <script type="text/html" id="organizationUserTbBar2">
     <!-- <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a> -->
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看或修改</a>
 <!--    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -217,6 +217,15 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
+                            <label class="layui-form-label layui-form-required">户主姓名:</label>
+                            <div class="layui-input-block">
+                                <input name="host" placeholder="户主姓名" class="layui-input"
+                                       lay-verType="tips" lay-verify="required" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md6 layui-col-lg6">
+                        <div class="layui-form-item">
                             <label class="layui-form-label layui-form-required">搬迁人员姓名:</label>
                             <div class="layui-input-block">
                                 <input name="name" placeholder="搬迁人员姓名" class="layui-input"
@@ -287,10 +296,10 @@
 
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">家庭人口:</label>
+                            <label class="layui-form-label ">家庭人口:</label>
                             <div class="layui-input-block">
                                 <input name="population" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="tips" />
                             </div>
                         </div>
                     </div>
@@ -305,10 +314,10 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">劳动力人口:</label>
+                            <label class="layui-form-label ">劳动力人口:</label>
                             <div class="layui-input-block">
                                 <input name="laborNumber" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="tips" />
                             </div>
                         </div>
                     </div>
@@ -339,15 +348,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-col-md6 layui-col-lg6">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">安置点名称:</label>
-                            <div class="layui-input-block">
-                                <input name="resettlementPoint" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
-                            </div>
-                        </div>
-                    </div>
+                
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-form-required">是否脱贫:</label>
@@ -361,7 +362,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label ">脱贫时间:</label>
                             <div class="layui-input-block">
-                                <input name="poorTime" placeholder="请输入" class="layui-input"
+                                <input name="poorTime" placeholder="例2020-0-0" class="layui-input"
                                        lay-verType="tips"/>
                             </div>
                         </div>
@@ -390,7 +391,7 @@
                             <label class="layui-form-label ">目前具体地址:</label>
                             <div class="layui-input-block">
                                 <input name="specificAddr" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="tips"/>
                             </div>
                         </div>
                     </div>
@@ -405,9 +406,9 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">文化程度:</label>
+                            <label class="layui-form-label ">文化程度:</label>
                             <div class="layui-input-block">
-                                <select name="education" lay-verType="tips" lay-verify="required">
+                                <select name="education" lay-verType="tips" >
                                     <option value="">请选择</option>
                                     <option value="小学">小学</option>
                                     <option value="初中">初中</option>
@@ -422,9 +423,9 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">健康状况:</label>
+                            <label class="layui-form-label ">健康状况:</label>
                             <div class="layui-input-block">
-                                <select name="stateOfHealths" lay-verType="tips" lay-verify="required">
+                                <select name="stateOfHealths" lay-verType="tips" >
                                     <option value="">请选择</option>
                                     <option value="健康">健康</option>
                                     <option value="残疾">残疾</option>
@@ -440,9 +441,9 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">劳动技能:</label>
+                            <label class="layui-form-label ">劳动技能:</label>
                             <div class="layui-input-block">
-                                <select name="laborSkills" lay-verType="tips" lay-verify="required">
+                                <select name="laborSkills" lay-verType="tips" >
                                     <option value="">请选择</option>
                                     <option value="技能劳动力">技能劳动力</option>
                                     <option value="普通劳动力">普通劳动力</option>
@@ -456,9 +457,9 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">致贫原因:</label>
+                            <label class="layui-form-label ">致贫原因:</label>
                             <div class="layui-input-block">
-                                <select name="causePoverty" lay-verType="tips" lay-verify="required">
+                                <select name="causePoverty" lay-verType="tips" >
                                     <option value="">请选择</option>
                                     <option value="交通条件落后">交通条件落后</option>
                                     <option value="缺技术">缺技术</option>
@@ -477,10 +478,10 @@
                     </div>
                     <div class="layui-col-md6 layui-col-lg6">
                         <div class="layui-form-item">
-                            <label class="layui-form-label layui-form-required">人均纯收入:</label>
+                            <label class="layui-form-label ">人均纯收入:</label>
                             <div class="layui-input-block">
                                 <input name="averageIncome" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="tips" />
                             </div>
                         </div>
                     </div>
@@ -489,7 +490,7 @@
                             <label class="layui-form-label layui-form-required">联系方式:</label>
                             <div class="layui-input-block">
                                 <input name="phone" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required|phone" required/>
+                                       lay-verType="tips"  lay-verify="required" required/>
                             </div>
                         </div>
                     </div>
@@ -1015,12 +1016,6 @@
                     }
                 },
                 {field: 'name', title: '搬迁人员姓名', align: 'center', width: 150},
-
-                {title: '操作', toolbar: '#organizationUserTbBar2', align: 'center', width: 180, minWidth: 120}
-            ]],
-            //  展开的列配置
-
-            openCols: [
                 {field: 'idCard', title: '搬迁人员身份证号', align: 'center', width: 180},
                 {field: 'torfHost', title: '是否户主', align: 'center', width: 150},
                 {field: 'hostId', title: '户主身份证账号', align: 'center', width: 180},
@@ -1045,6 +1040,13 @@
                 {field: 'averageIncome', title: '人均纯收入', align: 'center', width: 150},
                 {field: 'phone', title: '联系方式', align: 'center', width: 150},
                 {field: 'remarks', title: '备注（新增或死亡）', align: 'center', width: 150},
+
+                {title: '操作', toolbar: '#organizationUserTbBar2', align: 'center', width: 180, minWidth: 120}
+            ]],
+            //  展开的列配置
+
+            openCols: [
+                
 
 
                 {field: 'outsideProvince', title: '务工省外转移', align: 'center', width: 150},
@@ -1136,7 +1138,7 @@
                     success: function (res) {
                         var user = res.data.userInfo
                         window.location.href = setter.baseServer + 'api/est/person/export?type=0&uid=' + user.uid + '&level=' + user.level + '&regional=' + user.regionalId
-                            + "&did=" + user.did + '&tid=' + user.tid + '&sid=' + user.sid + '&cityId=' +currentSearch.cityId + '&disId=' + currentSearch.disId +
+                            + "&did=" + user.did + '&tid=' + user.tid + '&rid=' + user.rid + '&cityId=' +currentSearch.cityId + '&disId=' + currentSearch.disId +
                             '&resettlementPointId=' + currentSearch.resettlementPointId + '&towId=' + currentSearch.towId
                     }
                 })
@@ -1170,7 +1172,6 @@
 
                     form.on('submit(organizationUserEditSubmit2)', function (data) {
                         data.field.organizationId = selObj ? selObj.data.organizationId : undefined;
-                        data.field.pId = data.field.pid;
                         var loadIndex = layer.load(2);
                         $.ajax({
                             type: "post",
@@ -1186,7 +1187,7 @@
                                     layer.msg(res.msg, {icon: 1});
                                     insTb.reload({page: {curr: 1}});
                                 } else {
-                                    layer.msg(res.msg, {icon: 2});
+                                    layer.msg(res.message, {icon: 2});
                                 }
                             }
                         });
@@ -1401,7 +1402,7 @@
                             layer.msg(res.msg, {icon: 1});
                             insTb.reload({page: {curr: 1}});
                         } else {
-                            layer.msg(res.msg, {icon: 2});
+                            layer.msg(res.message, {icon: 2});
                         }
                     }
                 });
