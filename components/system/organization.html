@@ -377,11 +377,11 @@
                         $("#userName").removeAttr("readonly");
                     }
 
-                    var levels = ['市级管理员', '区县级管理员', '乡镇级管理员', '安置点管理员']
+                    var levels = ['超级管理员', '市级管理员', '区县级管理员', '乡镇级管理员', '安置点管理员']
                     $("#levelSelect").html('');
-                    var len = user_info.level==1?levels.length - 1:Number(user_info.level);
-                    for(var i = len + 1 ; i > 0; i--){
-                        $("#levelSelect").prepend('<option value="' + (i + 1) + '">' + levels[i - 1] + '</option>')
+                    var len = user_info.level;
+                    for(var i = len ; i < 5; i++){
+                        $("#levelSelect").append('<option value="' + i + '">' + levels[i] + '</option>')
                     }
                     $("#levelSelect").prepend('<option value="">请选择</option>')
                     form.render('select');
