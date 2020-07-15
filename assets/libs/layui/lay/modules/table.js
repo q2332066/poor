@@ -202,7 +202,7 @@
                         type: 'GET',
                         headers: {"token": sessionStorage.getItem("tokenc")},
                         success: function (res) {
-
+                            console.log(res)
                             if (20001 == res.code) {
                                 window.location.href = 'components/template/login/login.html'
                             }

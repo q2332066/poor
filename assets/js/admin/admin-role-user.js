@@ -23,7 +23,6 @@ layui.config({
                     layer.msg(resp.msg, {icon: 2});
                 }
             }, 'get')
-            console.log(org)
             return org;
         }
 
@@ -36,7 +35,6 @@ layui.config({
                     layer.msg(resp.msg, {icon : 2})
                 }
             }, 'post', {contentType: 'application/json'})
-            console.log(val)
             return val;
         }
 
@@ -55,7 +53,7 @@ layui.config({
             ,parseData: function(res){
                 return {
                     "value": res.uid //数据值
-                    ,"title": res.userName //数据标题
+                    ,"title": res.showName + '(' + res.userName + ')'//数据标题
                     ,"disabled": res.disabled  //是否禁用
                     ,"checked": res.checked //是否选中
                 }

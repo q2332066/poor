@@ -211,7 +211,7 @@ layui.define(["layer", "setter", "layRouter"], function (f) {
         r.data("url", i);
         n.showLoading(r);
         n.ajax({
-            url: i, dataType: "html", async: false, success: function (w) {
+            url: i, dataType: "html", success: function (w) {
                 n.removeLoading(r, false);
                 if (typeof w !== "string") {
                     w = JSON.stringify(w)

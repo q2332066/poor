@@ -256,7 +256,7 @@
                     success: function (res) {
                         var user = res.data.userInfo
                         window.location.href = setter.baseServer + 'api/est/person/export?type=1&uid=' + user.uid + '&level=' + user.level + '&regional=' + user.regionalId
-                            + "&did=" + user.did + '&tid=' + user.tid + '&sid=' + user.sid + '&cityId=' +currentSearch.cityId + '&disId=' + currentSearch.disId +
+                            + "&did=" + user.did + '&tid=' + user.tid + '&rid=' + user.rid + '&cityId=' +currentSearch.cityId + '&disId=' + currentSearch.disId +
                             '&resettlementPointId=' + currentSearch.resettlementPointId + '&towId=' + currentSearch.towId
                     }
                 })
@@ -295,8 +295,12 @@
                 type: 'post',
                 dataType: 'json',
                 contentType: "application/json; charset=utf-8",
+                headers: {"token":layui.data(layui.setter.tableName)['token']},
                 success: function (data) {
                     console.log(data);
+
+
+                     whert
                     // 1. 如果需要调整顺序，请执行梳理函数
                     var dt = excel.filterExportData(data, [
                         'c_id',

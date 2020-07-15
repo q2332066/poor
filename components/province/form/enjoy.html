@@ -253,7 +253,7 @@
                     success: function (res) {
                         var user = res.data.userInfo
                         window.location.href = setter.baseServer + 'api/est/person/export?type=4&uid=' + user.uid + '&level=' + user.level + '&regional=' + user.regionalId
-                            + "&did=" + user.did + '&tid=' + user.tid + '&sid=' + user.sid + '&cityId=' +$currentSearch.cityId + '&disId=' + $currentSearch.disId +
+                            + "&did=" + user.did + '&tid=' + user.tid + '&rid=' + user.rid + '&cityId=' +$currentSearch.cityId + '&disId=' + $currentSearch.disId +
                                 '&resettlementPointId=' + $currentSearch.resettlementPointId + '&towId=' + $currentSearch.towId
                     }
                 })
