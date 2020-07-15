@@ -117,17 +117,16 @@
         <div class="layui-form-item">
             <label class="layui-form-label layui-form-required">账号:</label>
             <div class="layui-input-block">
-                <input name="userName" placeholder="请输入账号" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
+                <input name="userName" placeholder="请输入账号" class="layui-input" readonly="readonly" id="userName"/>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label layui-form-required">密码:</label>
-            <div class="layui-input-block">
-                <input name="password" placeholder="请输入密码" class="layui-input"
-                       lay-verType="tips" lay-verify="required" required/>
-            </div>
-        </div>
+<!--        <div class="layui-form-item">-->
+<!--            <label class="layui-form-label layui-form-required">密码:</label>-->
+<!--            <div class="layui-input-block">-->
+<!--                <input name="password" placeholder="请输入密码" class="layui-input"-->
+<!--                       lay-verType="tips" lay-verify="required" required/>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="layui-form-item">
             <label class="layui-form-label layui-form-required">用户昵称:</label>
             <div class="layui-input-block">
@@ -376,6 +375,13 @@
                 title: (mData ? '修改' : '添加') + '用户',
                 content: $('#userEditDialog').html(),
                 success: function (layero, dIndex) {
+
+                    if(mData){
+                        $("#userName").attr("readonly", "readonly");
+                    } else {
+                        $("#userName").removeAttr("readonly");
+                    }
+
                     // 回显表单数据
                     form.val('userEditForm', mData);
                     // 表单提交事件
