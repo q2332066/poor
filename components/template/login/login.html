@@ -223,7 +223,7 @@
                     // key: "token",
                     // value: res.data.token
                     // });
-                    if(res.code == 28008){
+                    if(res.code == 28008||res.code == 28001){
                         layer.msg("登录名或密码错误", {icon:2, time: 1500})
                     } else if(res.code== 20000){
                         layer.msg('登录成功', {icon: 1, time: 1500}, function () {

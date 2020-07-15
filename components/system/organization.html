@@ -138,12 +138,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label layui-form-required">用户等级:</label>
                 <div class="layui-input-block">
-                    <select name="level" lay-verType="tips" lay-verify="required">
-                        <option value="">请选择</option>
-                        <option value="1">市级管理员</option>
-                        <option value="2">区县级管理员</option>
-                        <option value="3">乡镇级管理员</option>
-                        <option value="4">安置点管理员</option>
+                    <select name="level" lay-verType="tips" lay-verify="required" id="levelSelect">
                     </select>
                 </div>
             </div>
@@ -382,6 +377,15 @@
                         $("#userName").removeAttr("readonly");
                     }
 
+                    var levels = ['市级管理员', '区县级管理员', '乡镇级管理员', '安置点管理员']
+                    $("#levelSelect").html('');
+                    var len = user_info.user_name=='admin'?levels.length:Number(user_info.level);
+                    for(var i = len + 1 ; i > 0; i--){
+                        $("#levelSelect").prepend('<option value="' + (i + 1) + '">' + levels[i] + '</option>')
+                    }
+                    $("#levelSelect").prepend('<option value="">请选择</option>')
+                    form.render('select');
+
                     // 回显表单数据
                     form.val('userEditForm', mData);
                     // 表单提交事件
@@ -416,6 +420,8 @@
                     var insRoleSel;
                     admin.req('role/list', {page: 1, limit: 1000}, function (resp) {
 
+                        console.log(user_info)
+
                         var r = resp.data.records
                         for (var i in r) {
                             r[i].value = r[i].id
@@ -427,20 +433,7 @@
                             name: 'roleName',
                             layVerify: 'required',
                             layVerType: 'tips',
-                            data: r/*[{
-
-                                name: '市级',
-                                value: "1"
-                            }, {
-                                name: '区县级',
-                                value: "2"
-                            }, {
-                                name: '乡镇级',
-                                value: "3"
-                            }, {
-                                name: '安置点级',
-                                value: "4"
-                            }]*/
+                            data: r
                         });
                         // 回显选中角色
                         if (mData && mData.roleId) {
