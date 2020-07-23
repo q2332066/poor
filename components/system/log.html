@@ -1,0 +1,49 @@
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+<!--                <div class="layui-card-body ">-->
+<!--                    <form class="layui-form layui-col-space5">-->
+<!--                        <div class="layui-inline layui-show-xs-block">-->
+<!--                            <input class="layui-input"  autocomplete="off" placeholder="开始日" name="start" id="start">-->
+<!--                        </div>-->
+<!--                        <div class="layui-inline layui-show-xs-block">-->
+<!--                            <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">-->
+<!--                        </div>-->
+<!--                        <div class="layui-inline layui-show-xs-block">-->
+<!--                            <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">-->
+<!--                        </div>-->
+<!--                       <div class="layui-inline layui-show-xs-block">-->
+<!--                            <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>-->
+<!--                            <button class="layui-btn" onclick="xadmin.open('添加用户','components/system/admin-role-add.html',590,560)"><i class="layui-icon"></i>添加</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+                <div class="layui-card-body ">
+                    <div style="height: 100%">
+                        <table class="layui-table" id="admin_table" lay-filter="table"></table>
+
+                        <script id="barUser" type="text/html">
+                            
+                          
+<!--                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">分配用户</a>-->
+<!--                            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+<!--                            {{#  if(d.name !== '超级管理员'){ }}-->
+<!--                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+<!--                            {{#  } }} -->
+                        </script>
+
+                        <script type="text/html" id="organizationUserTbToolBar">
+<!--                            <button lay-event="add" class="layui-btn layui-btn-sm icon-btn" onclick="xadmin.open('添加用户','components/system/admin-role-add.html',590,560)">-->
+<!--                                <i class="layui-icon">&#xe654;</i>添加-->
+<!--                            </button>&nbsp;-->
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="assets/js/xadmin.js?v=319"></script>
+<script type="text/javascript" src="assets/js/log/log.js"></script>

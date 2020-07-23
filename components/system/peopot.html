@@ -45,7 +45,26 @@
             <div class="layui-card">
                 <div class="layui-card-body" style="padding: 10px;">
                     <!-- 数据表格 -->
-                    <table id="organizationUserTable" lay-filter="organizationUserTable"></table>
+                    <form class="layui-form" lay-filter="tree-form" id="organizationUserTbSearchForm">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">上级机构</label>
+                            <div class="layui-input-block">
+                                <div id="organizationEditParentSel1" class="ew-xmselect-tree"></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">机构名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" id="name"  lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="submit">保存</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -101,6 +120,7 @@
         var selObj, treeData;  // 左树选中数据
         var treeNodeParam = {}//已选节点
         var setter = layui.setter;
+        var insXmSel1;
 
         /* 渲染树形 */
         function renderTree() {
@@ -152,7 +172,6 @@
                     }
                     //treeData = layui.treeTable.pidToChildren(res.data, 'organizationId', 'parentId');
                     treeData = res.data ? res.data : []
-                    console.log(treeData)
                     tree.render({
                         elem: '#organizationTree',
                         onlyIconControl: true,
@@ -163,11 +182,43 @@
                             console.log(treeNodeParam)
                             $('#organizationTree').find('.ew-tree-click').removeClass('ew-tree-click');
                             $(obj.elem).children('.layui-tree-entry').addClass('ew-tree-click');
-                            // insTb.reload({
-                            //     where: {organizationId: obj.data.organizationId},
-                            //     page: {curr: 1},
+                            var selectedId = '1';
+                            var name = treeNodeParam.name
+                            if(treeNodeParam.rid){
+                                selectedId = treeNodeParam.rid
+                            } else {
+                                selectedId = treeNodeParam.id
+                            }
 
-                            // });
+                            //初始化树
+                            //渲染下拉树
+                            insXmSel1 = xmSelect.render({
+                                el: '#organizationEditParentSel1',
+                                height: '250px',
+                                data() {
+                                    return JSON.parse(JSON.stringify(treeData))
+                                },
+                                // initValue: mData ? [mData.parentId] : (pid ? [pid] : []),
+                                model: {label: {type: 'text'}},
+                                // prop: {
+                                //     name: 'organizationName',
+                                //     value: 'organizationId'
+                                // },
+                                radio: true,
+                                clickClose: true,
+                                tree: {
+                                    show: true,
+                                    indent: 15,
+                                    strict: false,
+                                    expandedKeys: true
+                                },
+                                on: function (data) {
+                                    // 已选节点
+                                    treeNodeParam = data.change[0];
+                                }
+                            });
+                            insXmSel1.setValue([{value: selectedId, name: name, parentId: treeNodeParam.parentId}])
+                            $("#name").val(name)
                         }
                     });
                     $('#organizationTree').find('.layui-tree-entry:first>.layui-tree-main>.layui-tree-txt').trigger('click');
@@ -193,6 +244,12 @@
             if (!selObj) return layer.msg('未选择机构', {icon: 2});
             doDel(selObj);
         });
+
+        form.on('submit(submit)', function(data){
+            var v = insXmSel1.getValue();
+            console.log(v)
+            return false;
+        })
 
         /* 显示表单弹窗 */
         function showEditModel(mData, pid) {
@@ -285,6 +342,7 @@
                         return false;
                     });
                     // 拷贝树数据
+                    console.log(treeData)
                     var thisData = JSON.parse(JSON.stringify(treeData))
                     thisData.forEach(function (item) {
                         if (item.children && item.children.length) {
