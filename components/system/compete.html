@@ -220,6 +220,8 @@
                                     },
                                     yAxis: {
                                         type: 'value',
+                                        max: '100',
+                                        data: ['20', '40', '60', '80', '100'],
                                         axisLabel: {
                                             formatter: '{value}%'
                                         }
@@ -235,6 +237,14 @@
                                         },
                                         backgroundStyle: {
                                             color: 'rgba(220, 220, 220, 0.8)'
+                                        },
+                                        itemStyle: {
+                                            normal: {
+                                                color: function(params){
+                                                    var colorList = ['#C1232B','#B5C334','#FCCE10','#E87C25','#27727B']
+                                                    return colorList[params.dataIndex];
+                                                }
+                                            }
                                         }
                                     }]
                                 });
