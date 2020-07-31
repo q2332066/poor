@@ -1377,35 +1377,21 @@
 
         /* 删除2 */
         function doDel2(obj) {
-
             layer.confirm('确定要删除选中用户吗？', {
                 skin: 'layui-layer-admin',
                 shade: .1
             }, function (i) {
                 layer.close(i);
                 var loadIndex = layer.load(2);
-                //    var parms=[];
-                //    for(var i=0;i<obj.ids.length;i++){
-                //        parms.push(obj.ids[i]);
-                //    }
-
-
-                $.ajax({
-                    url: setter.baseServer + 'api/est/person/deleteList',
-                    type: 'POST',
-                    async: false,
-                    data: JSON.stringify(obj),//向服务端发送删除的id
-                    contentType: "application/json;charset=UTF-8",
-                    headers: {"token": layui.data(layui.setter.tableName)['token']},
-                    success: function (res) {
-                        if (0 === res.code) {
-                            layer.msg(res.msg, {icon: 1});
-                            insTb.reload({page: {curr: 1}});
-                        } else {
-                            layer.msg(res.message, {icon: 2});
-                        }
+                admin.req(obj.ids.length>1?'api/est/person/deleteList':'api/est/person/delete',
+                    obj.ids.length>1?obj:{ids: obj.ids[0]}, function(res){
+                    if (0 === res.code) {
+                        layer.msg(res.msg, {icon: 1});
+                        insTb.reload({page: {curr: 1}});
+                    } else {
+                        layer.msg(res.message, {icon: 2});
                     }
-                });
+                }, 'post');
                 layer.close(loadIndex);
             });
         }
