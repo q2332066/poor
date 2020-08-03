@@ -220,7 +220,7 @@
                             <label class="layui-form-label layui-form-required">户主姓名:</label>
                             <div class="layui-input-block">
                                 <input name="host" placeholder="户主姓名" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="msg" lay-verify="required" required/>
                             </div>
                         </div>
                     </div>
@@ -229,7 +229,7 @@
                             <label class="layui-form-label layui-form-required">搬迁人员姓名:</label>
                             <div class="layui-input-block">
                                 <input name="name" placeholder="搬迁人员姓名" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="msg" lay-verify="required" required/>
                             </div>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
                             <label class="layui-form-label layui-form-required">搬迁人员身份证号:</label>
                             <div class="layui-input-block">
                                 <input name="idCard" placeholder="请输入身份证号" class="layui-input"
-                                       lay-verType="tips" lay-verify="required|identity" required/>
+                                       lay-verType="msg" lay-verify="required|identity" required/>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label layui-form-required">与户主关系:</label>
                             <div class="layui-input-block">
-                                <select name="relationship" lay-verType="tips" lay-verify="required">
+                                <select name="relationship" lay-verType="msg" lay-verify="required">
                                     <option value="">请选择角色</option>
                                     <option value="户主">户主</option>
                                     <option value="配偶">配偶</option>
@@ -289,7 +289,7 @@
                             <label class="layui-form-label layui-form-required">户主身份证账号:</label>
                             <div class="layui-input-block">
                                 <input name="hostId" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required|identity" required/>
+                                       lay-verType="msg" lay-verify="required|identity"/>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
                             <label class="layui-form-label layui-form-required">迁出地:</label>
                             <div class="layui-input-block">
                                 <input name="movedOut" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="msg" lay-verify="required" required/>
                             </div>
                         </div>
                     </div>
@@ -335,7 +335,7 @@
                             <label class="layui-form-label layui-form-required">迁入地:</label>
                             <div class="layui-input-block">
                                 <input name="moveIn" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips" lay-verify="required" required/>
+                                       lay-verType="msg" lay-verify="required" required/>
                             </div>
                         </div>
                     </div>
@@ -362,7 +362,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label ">脱贫时间:</label>
                             <div class="layui-input-block">
-                                <input name="poorTime" placeholder="例2020-0-0" class="layui-input"
+                                <input name="poorTime" placeholder="例2020-0-0" class="layui-input" id="poorTime"
                                        lay-verType="tips"/>
                             </div>
                         </div>
@@ -490,7 +490,7 @@
                             <label class="layui-form-label layui-form-required">联系方式:</label>
                             <div class="layui-input-block">
                                 <input name="phone" placeholder="请输入" class="layui-input"
-                                       lay-verType="tips"  lay-verify="required" required/>
+                                       lay-verType="msg"  lay-verify="required" required/>
                             </div>
                         </div>
                     </div>
@@ -887,7 +887,7 @@
         base: 'assets/module/'
     }).extend({
         opTable: 'opTable/opTable'
-    }).use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable', 'opTable'], function () {
+    }).use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable', 'opTable', 'laydate'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
         var form = layui.form;
@@ -901,7 +901,8 @@
         var selObj, treeData;  // 左树选中数据
         var setter = layui.setter;
         var opTable = layui.opTable;
-        var currentSearch = {}
+        var currentSearch = {};
+        var laydate = layui.laydate;
 
         /* 渲染树形 */
         function renderTree() {
@@ -1160,16 +1161,23 @@
 
         /* 显示表单弹窗2 */
         function showEditModel2(mData) {
+
             admin.open({
                 type: 1,
                 title: (mData ? '修改' : '添加') + '人员信息',
                 area: ['850px', '5px'],
                 content: $('#organizationUserEditDialog2').html(),
                 success: function (layero, dIndex) {
+
+                    //执行一个laydate实例
+                    laydate.render({
+                        elem: '#poorTime' //指定元素
+                        , format: 'yyyy-MM-dd'
+                    });
+
                     // 回显表单数据
                     form.val('organizationUserEditForm', mData);
                     // 表单提交事件
-
                     form.on('submit(organizationUserEditSubmit2)', function (data) {
                         data.field.organizationId = selObj ? selObj.data.organizationId : undefined;
                         var loadIndex = layer.load(2);
@@ -1199,8 +1207,6 @@
             });
 
             layer.ready(function () {
-                console.log(mData)
-
                 //三级联动
                 var did = mData ? mData.did : "";
                 var tid = mData ? mData.tid : "";
