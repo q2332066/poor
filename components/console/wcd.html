@@ -1,0 +1,396 @@
+<div id="main" style="height:400px;"></div>
+<div id="main2" style="height:430px;">
+    <div id="tqs1" style="height:430px;float: left;width: 415px;"></div>
+    <div id="tqs2" style="height:430px;float: left;width: 415px;"></div>
+    <div id="tqs3" style="height:430px;float: right;width: 415px;"></div>
+    <div id="tqs4" style="height:430px;float: right;width: 415px;"></div>
+</div>
+
+
+
+
+<!-- 表单弹窗 -->
+
+
+<!-- js部分 -->
+<script type="text/javascript" src="assets/libs/echarts/echarts.min.js?v=319"></script>
+<script>
+
+    /* 渲染树形 */
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tree', 'dropdown', 'xmSelect', 'treeTable'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tree = layui.tree;
+        var xmSelect = layui.xmSelect;
+        var setter = layui.setter;
+        var selObj, treeData;  // 左树选中数据
+
+        /* 渲染树形 */
+        function tqs() {
+            $.ajax
+                ({
+                    url: setter.baseServer + 'api/est/person/sPercentage',
+                    type: 'post',
+                    headers: { "token": layui.data(layui.setter.tableName)['token'] },
+                    success: function (res) {
+                        console.log(res.data)
+                        //*******************************************
+                        // 基于准备好的dom1，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main'));
+                        var app = {};
+                        app.config = {
+                            rotate: 90,
+                            align: 'left',
+                            verticalAlign: 'middle',
+                            position: 'insideBottom',
+                            distance: 15,
+                            onChange: function () {
+                                var labelOption = {
+                                    normal: {
+                                        rotate: app.config.rotate,
+                                        align: app.config.align,
+                                        verticalAlign: app.config.verticalAlign,
+                                        position: app.config.position,
+                                        distance: app.config.distance
+                                    }
+                                };
+                                myChart.setOption({
+                                    series: [{
+                                        label: labelOption
+                                    }, {
+                                        label: labelOption
+                                    }, {
+                                        label: labelOption
+                                    }, {
+                                        label: labelOption
+                                    }]
+                                });
+                            }
+                        };
+
+
+                        var labelOption = {
+                            show: true,
+                            position: app.config.position,
+                            distance: app.config.distance,
+                            align: app.config.align,
+                            verticalAlign: app.config.verticalAlign,
+                            rotate: app.config.rotate,
+                            formatter: '{name|{a}}  {c}%',
+                            fontSize: 16,
+                            rich: {
+                                name: {
+                                    textBorderColor: '#fff'
+                                }
+                            }
+                        };
+                        console.log(res.data[0]["personnelInformationTable"])
+                        // 绘制图表
+                        myChart.setOption({
+                            color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            legend: {
+                                data: ["新区","耀州区","王益区","印台区","宜君县","铜川市"]
+                            },
+                            toolbox: {
+                                show: true,
+                                orient: 'vertical',
+                                left: 'right',
+                                top: 'center',
+                                feature: {
+                                    mark: { show: true },
+                                    dataView: { show: true, readOnly: false },
+                                    magicType: { show: true, type: ['line', 'bar', 'stack', 'tiled'] },
+                                    restore: { show: true },
+                                    saveAsImage: { show: true }
+                                }
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    axisTick: { show: false },
+                                    data: ['人员信息', '就业创业', '已享受帮扶', '产业发展']
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value'
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: '新区',
+                                    type: 'bar',
+                                    barGap: 0,
+                                    label: labelOption,
+                                    data: [res.data[0]["personnelInformationTable"],res.data[0]["careerPolicyTable"],res.data[0]["enjoyHelpPolicyTable"],res.data[0]["industrialPolicyTable"]]
+                                },
+                                {
+                                    name: '耀州区',
+                                    type: 'bar',
+                                    label: labelOption,
+                                    data: [res.data[1]["personnelInformationTable"],res.data[1]["careerPolicyTable"],res.data[1]["enjoyHelpPolicyTable"],res.data[1]["industrialPolicyTable"]]
+                                },
+                                {
+                                    name: '王益区',
+                                    type: 'bar',
+                                    label: labelOption,
+                                    data: [res.data[2]["personnelInformationTable"],res.data[2]["careerPolicyTable"],res.data[2]["enjoyHelpPolicyTable"],res.data[2]["industrialPolicyTable"]]
+                                },
+                                {
+                                    name: '印台区',
+                                    type: 'bar',
+                                    label: labelOption,
+                                    data: [res.data[3]["personnelInformationTable"],res.data[3]["careerPolicyTable"],res.data[3]["enjoyHelpPolicyTable"],res.data[3]["industrialPolicyTable"]]
+                                },
+                                {
+                                    name: '宜君县',
+                                    type: 'bar',
+                                    label: labelOption,
+                                    data: [res.data[4]["personnelInformationTable"],res.data[4]["careerPolicyTable"],res.data[4]["enjoyHelpPolicyTable"],res.data[4]["industrialPolicyTable"]]
+                                }
+                                ,
+                                {
+                                    name: '铜川市',
+                                    type: 'bar',
+                                    label: labelOption,
+                                    data: [res.data[5]["personnelInformationTable"],res.data[5]["careerPolicyTable"],res.data[5]["enjoyHelpPolicyTable"],res.data[5]["industrialPolicyTable"]]
+                                }
+                            ]
+                        });
+
+                        var myChart2 = echarts.init(document.getElementById('tqs1'));
+                        option2 = {
+                            title: {
+                                text: '人员基本情况',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{b} : {c}%'
+                            },
+                            angleAxis: {
+                                max: 100,
+
+
+                            },
+                            radiusAxis: {
+                                type: 'category',
+                                data: ["新区","耀州区","王益区","印台区","宜君县","铜川市"],
+                                z: 10,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                axisLabel: {
+                                    interval: 0
+                                }
+                            },
+                            polar: {
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: [res.data[0]["personnelInformationTable"],res.data[1]["personnelInformationTable"],res.data[2]["personnelInformationTable"],res.data[3]["personnelInformationTable"],res.data[4]["personnelInformationTable"],res.data[5]["personnelInformationTable"]],
+                                coordinateSystem: 'polar',
+                                name: 'A',
+                                stack: 'a',
+                                itemStyle: {
+                                    normal: {
+                                        //每根柱子颜色设置
+                                        color: function (params) {
+                                            let colorList = [
+                                            "rgb(81, 107, 145)",
+                                                "#3fb1e3",
+                                                "#6be6c1",
+                                                "#626c91",
+                                                "#a0a7e6",
+                                                "#c4ebac",
+                                                "#96dee8"
+                                            ];
+                                            return colorList[params.dataIndex];
+                                        }
+                                    }
+                                },
+                            }
+                            ]
+                        };
+                        myChart2.setOption(option2);
+
+
+
+                        var myChart3 = echarts.init(document.getElementById('tqs2'));
+                        option3 = {
+                            title: {
+                                text: '就业创业',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{b} : {c}%'
+                            },
+                            angleAxis: {
+                                max: 100
+                            },
+                            radiusAxis: {
+                                type: 'category',
+                                data: ["新区","耀州区","王益区","印台区","宜君县","铜川市"],
+                                z: 10,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                axisLabel: {
+                                    interval: 0
+                                }
+                            },
+                            polar: {
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: [res.data[0]["careerPolicyTable"],res.data[1]["careerPolicyTable"],res.data[2]["careerPolicyTable"],res.data[3]["careerPolicyTable"],res.data[4]["careerPolicyTable"],res.data[5]["careerPolicyTable"]],
+                                coordinateSystem: 'polar',
+                                name: 'A',
+                                stack: 'a',
+                                itemStyle: {
+                                    normal: {
+                                        //每根柱子颜色设置
+                                        color: function (params) {
+                                            let colorList = [
+                                            "rgb(81, 107, 145)",
+                                                "#3fb1e3",
+                                                "#6be6c1",
+                                                "#626c91",
+                                                "#a0a7e6",
+                                                "#c4ebac",
+                                                "#96dee8"
+                                            ];
+                                            return colorList[params.dataIndex];
+                                        }
+                                    }
+                                },
+                            }]
+                        };
+                        myChart3.setOption(option3);
+
+                        var myChart4 = echarts.init(document.getElementById('tqs3'));
+                        option4 = {
+                            title: {
+                                text: '产业发展',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{b} : {c}%'
+                            },
+                            angleAxis: {
+                                max: 100
+                            },
+                            radiusAxis: {
+                                type: 'category',
+                                data: ["新区","耀州区","王益区","印台区","宜君县","铜川市"],
+                                z: 10,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                axisLabel: {
+                                    interval: 0
+                                }
+                            },
+                            polar: {
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: [res.data[0]["industrialPolicyTable"],res.data[1]["industrialPolicyTable"],res.data[2]["industrialPolicyTable"],res.data[3]["industrialPolicyTable"],res.data[4]["industrialPolicyTable"],res.data[5]["industrialPolicyTable"]],
+                                coordinateSystem: 'polar',
+                                name: 'A',
+                                stack: 'a',
+                                itemStyle: {
+                                    normal: {
+                                        //每根柱子颜色设置
+                                        color: function (params) {
+                                            let colorList = [
+                                                "rgb(81, 107, 145)",
+                                                "#3fb1e3",
+                                                "#6be6c1",
+                                                "#626c91",
+                                                "#a0a7e6",
+                                                "#c4ebac",
+                                                "#96dee8"
+                                            ];
+                                            return colorList[params.dataIndex];
+                                        }
+                                    }
+                                },
+                            }]
+                        };
+                        myChart4.setOption(option4);
+
+
+                        var myChart5 = echarts.init(document.getElementById('tqs4'));
+                        option5 = {
+                            title: {
+                                text: '已享受帮扶',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{b} : {c}%'
+                            },
+                            angleAxis: {
+                                max: 100
+                            },
+                            radiusAxis: {
+                                type: 'category',
+                                data: ["新区","耀州区","王益区","印台区","宜君县","铜川市"],
+                                z: 10,
+                                axisTick: {
+                                    alignWithLabel: true
+                                },
+                                axisLabel: {
+                                    interval: 0
+                                }
+                            },
+                            polar: {
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: [res.data[0]["enjoyHelpPolicyTable"],res.data[1]["enjoyHelpPolicyTable"],res.data[2]["enjoyHelpPolicyTable"],res.data[3]["enjoyHelpPolicyTable"],res.data[4]["enjoyHelpPolicyTable"],res.data[5]["enjoyHelpPolicyTable"]],
+                                coordinateSystem: 'polar',
+                                name: 'A',
+                                stack: 'a',
+                                itemStyle: {
+                                    normal: {
+                                        //每根柱子颜色设置
+                                        color: function (params) {
+                                            let colorList = [
+                                                "rgb(81, 107, 145)",
+                                                "#3fb1e3",
+                                                "#6be6c1",
+                                                "#626c91",
+                                                "#a0a7e6",
+                                                "#c4ebac",
+                                                "#96dee8"
+                                            ];
+                                            return colorList[params.dataIndex];
+                                        }
+                                    }
+                                },
+                            }]
+                        };
+                        myChart5.setOption(option5);
+                        //*******************************************
+                    }
+                });
+        }
+        tqs();
+    });
+
+
+</script>
