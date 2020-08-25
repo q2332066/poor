@@ -3,6 +3,7 @@
 layui.define(['table'], function (exports) {
     var setter = {
         baseServer: 'http://localhost:8110/', // 接口地址，实际项目请换成http形式的地址
+        // baseServer: 'http://poor.ittun.com/', // 接口地址，实际项目请换成http形式的地址
         pageTabs: false,   // 是否开启多标签
         cacheTab: true,  // 是否记忆Tab
         defaultTheme: '',  // 默认主题

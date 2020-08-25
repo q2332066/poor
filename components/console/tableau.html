@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>Trusted Ticket Requester</title>
+<script type="text/javascript">
+  function submitForm(){
+    document.getElementById('form1').action =
+    document.getElementById('server').value + "/trusted";
+  }
+</script>
+<style type="text/css">
+  .style1 {width: 100%;}
+  .style2 {width: 429px;}
+  #server {width: 254px;}
+</style>
+</head>
+<body>
+<h3>Trusted Ticketer</h3>
+<form method="POST" id="form1" onSubmit="submitForm()">
+  <table class="style1">
+    <tr>
+      <td class="style2">Username</td>
+      <td><input type="text" name="username" value="tableau" /></td>
+    </tr>
+    <tr>
+      <td class="style2">Server</td>
+      <td><input type="text" id="server" name="server" value="http://192.168.101.59:8000" /></td>
+    </tr>
+    <tr>
+      <td class="style2">Client IP (optional)</td>
+      <td><input type="text" id="client_ip" name="client_ip" value="" /></td>
+    </tr>
+    <tr>
+      <td class="style2">Site (leave blank for Default site; otherwise enter the site name)</td>
+      <td><input type="text" id="target_site" name="target_site" value="development" /></td>
+    </tr>
+    <tr>
+      <td class="style2"><input type="submit" name="submittable" value="Get Ticket" /></td>
+      <td>&#160;</td>
+    </tr>
+  </table>
+</form>
+<script type='text/javascript' src='http://192.168.101.59:8000/javascripts/api/viz_v1.js'></script>
+<!-- <div class='tableauPlaceholder' style='width: 800px; height: 600px;' >
+    <object class='tableauViz' width='1300' height='600' style='display:none;'>
+        <param name='site_root' value='/t/development' />
+        <param name='name' value='1/sheet1' />
+        <param name='tabs' value='yes' />
+        <param name='toolbar' value='yes' />
+        <param name="ticket" value="1l0q4fNqT-a3BY6bb8U34g==:y5LR7a_FnVD9X_ppobji0IA8">
+    </object>
+</div> -->
+<h4>Be sure to add your IP as a Trusted IP address to the server</h4>
+</body>
+</html>
